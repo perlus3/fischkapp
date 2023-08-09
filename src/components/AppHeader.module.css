@@ -1,23 +1,4 @@
 .header {
   height: 60px;
   background: #fff;
-  display: grid;
-  grid-template-columns: auto 280px auto;
-  justify-content: center;
-  align-items: center;
-}
-
-.header img {
-  margin-right: 5px;
-  height: 32px;
-  width: 29px;
-}
-
-.header button {
-  background: black;
-  border: none;
-  border-radius: 50px;
-  height: 40px;
-  width: 40px;
-  color: white;
 }
