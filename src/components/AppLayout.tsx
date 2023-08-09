@@ -1,20 +1,11 @@
-import React from 'react';
-import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-} from 'react';
-import './AppLayout.module.css';
+import React, { PropsWithChildren } from 'react';
 
-export const AppLayout = (props: {
-  children:
-    | string
-    | number
-    | boolean
-    | ReactElement<any, string | JSXElementConstructor<any>>
-    | Iterable<ReactNode>
-    | ReactPortal
-    | null
-    | undefined;
-}) => <div className="layout">{props.children}</div>;
+import styles from './AppLayout.module.css';
+
+interface AppLayoutProps {
+  children: React.ReactNode;
+}
+
+export const AppLayout: React.FC<AppLayoutProps> = (
+  props: PropsWithChildren<AppLayoutProps>,
+) => <div className={styles.layout}>{props.children}</div>;
