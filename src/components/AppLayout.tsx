@@ -5,7 +5,7 @@ import {
   ReactNode,
   ReactPortal,
 } from 'react';
-import './AppLayout.module.css';
+import styles from './AppLayout.module.css';
 
 export const AppLayout = (props: {
   children:
@@ -17,4 +17,4 @@ export const AppLayout = (props: {
     | ReactPortal
     | null
     | undefined;
-}) => <div className="layout">{props.children}</div>;
+}) => <div className={styles.layout}>{props.children}</div>;

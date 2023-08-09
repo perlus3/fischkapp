@@ -1,6 +1,20 @@
-import React from 'react';
-import './AppHeader.module.css';
+import React, { useState } from 'react';
+import styles from './AppHeader.module.css';
+import logo from '../assets/logo.png';
 
-export const AppHeader = () => (
-  <header className="header">Fischkapp header</header>
-);
+export const AppHeader = () => {
+  const [cards, setCards] = useState<number>(0);
+
+  const cardsNumberHandler = () => {
+    setCards((prev) => prev + 1);
+  };
+  return (
+    <>
+      <header className={styles.header}>
+        <img src={logo} alt="Logo" />
+        <span>Cards: {cards}</span>
+        <button onClick={cardsNumberHandler}>+</button>
+      </header>
+    </>
+  );
+};
