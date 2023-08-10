@@ -6,9 +6,13 @@ export const AppHeader = () => {
   return (
     <>
       <header className={styles.header}>
-        <img src={logo} alt="Logo" />
-        <span>Cards: 0</span>
-        <button>+</button>
+        <div className={styles.logoContainer}>
+          <img src={logo} alt="Logo" />
+          <span>Cards: 0</span>
+        </div>
+        <div className={styles.buttonContainer}>
+          <button>+</button>
+        </div>
       </header>
     </>
   );
