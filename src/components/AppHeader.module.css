@@ -3,7 +3,7 @@
   background: #fff;
   display: flex;
   grid-template-columns: auto auto;
-  justify-content: space-between; /* Równomierne rozmieszczenie na osi poziomej */
+  justify-content: space-between;
   align-items: center;
 }
 
