@@ -1,16 +1,26 @@
 .header {
   height: 60px;
   background: #fff;
-  display: grid;
-  grid-template-columns: auto 280px auto;
-  justify-content: center;
+  display: flex;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoContainer {
+  display: flex;
   align-items: center;
 }
 
 .header img {
-  margin-right: 5px;
+  margin: auto 5px auto 40px;
   height: 32px;
   width: 29px;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
 }
 
 .header button {
@@ -20,4 +30,5 @@
   height: 40px;
   width: 40px;
   color: white;
+  margin-right: 10px;
 }
