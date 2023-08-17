@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './AppHeader.module.css';
 import logo from '../assets/logo.png';
+import addButton from '../assets/addButton.png';
 
 export const AppHeader = () => {
   return (
@@ -11,7 +12,7 @@ export const AppHeader = () => {
           <span>Cards: 0</span>
         </div>
         <div className={styles.buttonContainer}>
-          <button>+</button>
+          <img src={addButton} alt="Logo" />
         </div>
       </header>
     </>
