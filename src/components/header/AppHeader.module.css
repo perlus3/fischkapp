@@ -4,6 +4,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  width: 375px;
+  top: 0;
+  z-index: 100;
 }
 
 .logoContainer {

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
-import deleteButton from '../assets/deleteButton.png';
-import styles from './Card.module.css';
+import deleteButton from '../../assets/deleteButton.png';
+import styles from './Cards.module.css';
 
 export const handleTextareaInput = (
   ref: React.RefObject<HTMLTextAreaElement>,
