@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { AppHeader } from './components/AppHeader';
-import { AppLayout } from './components/AppLayout';
+import { AppHeader } from './components/header/AppHeader.tsx';
+import { AppLayout } from './components/layout/AppLayout.tsx';
 
 import './App.css';
-import { CardFront } from './components/CardFront.tsx';
-import { CardBack } from './components/CardBack.tsx';
-import { SingleCard } from './components/SingleCard.tsx';
-import { CardsList } from './components/CardsList.tsx';
+import { CardFront } from './components/cards/CardFront.tsx';
+import { CardBack } from './components/cards/CardBack.tsx';
+import { SingleCard } from './components/cards/SingleCard.tsx';
+import { CardsList } from './components/cards/CardsList.tsx';
 
 function App() {
   return (

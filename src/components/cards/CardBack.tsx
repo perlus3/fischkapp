@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import deleteButton from '../assets/deleteButton.png';
+import deleteButton from '../../assets/deleteButton.png';
 import styles from './Cards.module.css';
 
 export const handleTextareaInput = (

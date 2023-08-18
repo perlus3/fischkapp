@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './AppHeader.module.css';
-import logo from '../assets/logo.png';
-import addButton from '../assets/addButton.png';
+import logo from '../../assets/logo.png';
+import addButton from '../../assets/addButton.png';
 
 export const AppHeader = () => {
   return (

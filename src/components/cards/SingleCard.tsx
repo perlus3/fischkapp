@@ -1,6 +1,6 @@
 import React from 'react';
 
-import editButton from '../assets/editButton.png';
+import editButton from '../../assets/editButton.png';
 import styles from './SingleCard.module.css';
 
 export const SingleCard = () => {
