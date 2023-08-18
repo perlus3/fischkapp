@@ -1,3 +1,7 @@
+.layoutContainer {
+    margin-top: 20px;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -8,10 +12,11 @@
     border: 1px solid #ebebec;
     border-radius: 15px;
     background: white;
-    margin: 10px auto;
+    margin: 12px auto;
     padding: 10px;
     flex-shrink: 0;
     position: relative;
+    top: 50px;
 }
 
 .inputContainer {
@@ -71,8 +76,6 @@ button {
 
 .textAndButtonContainer {
     display: flex;
-    /*justify-content: space-between;*/
-    /*align-items: center;*/
     width: 100%;
     margin: 10px 0 10px 25px;
     position: static;
@@ -80,9 +83,8 @@ button {
 
 .caption {
     display: flex;
-    flex-direction: column; /* Dodane - tekst będzie zawijany w dół */
+    flex-direction: column;
     width: 80%;
-    /*margin: 0 0 0 50px;*/
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
