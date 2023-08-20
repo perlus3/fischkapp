@@ -7,9 +7,6 @@ export const CardsList = () => {
   return (
     <div className={styles.container}>
       <SingleCard />
-      <SingleCard />
-      <SingleCard />
-      <SingleCard />
     </div>
   );
 };

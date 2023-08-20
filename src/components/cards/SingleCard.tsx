@@ -7,7 +7,7 @@ export const SingleCard = () => {
   return (
     <div className={styles.card}>
       <div className={styles.text}>
-        <p>Przykładowy tekst testowy dla wystylowania układu tekstuaaaaaaaa</p>
+        <p>Fish</p>
       </div>
       <div className={styles.icon}>
         <img src={editButton} alt="edit-button" />

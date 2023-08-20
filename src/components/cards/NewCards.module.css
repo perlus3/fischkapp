@@ -91,6 +91,9 @@ button {
     line-height: 15px;
     word-wrap: break-word;
     overflow: hidden;
+    position: relative;
+    top: 12px;
+    left: 1px;
 }
 
 
