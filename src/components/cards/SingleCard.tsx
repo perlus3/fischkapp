@@ -1,17 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import editButton from '../../assets/editButton.png';
-import styles from './SingleCard.module.css';
+import { FrontCard } from './FrontCard.tsx';
+import { BackCard } from './BackCard.tsx';
 
 export const SingleCard = () => {
-  return (
-    <div className={styles.card}>
-      <div className={styles.text}>
-        <p>Przykładowy tekst testowy dla wystylowania układu tekstuaaaaaaaa</p>
-      </div>
-      <div className={styles.icon}>
-        <img src={editButton} alt="edit-button" />
-      </div>
-    </div>
-  );
+  const [isAnswerChecked, setIsAnswerChecked] = useState(false);
+  return isAnswerChecked ? <FrontCard /> : <BackCard />;
 };

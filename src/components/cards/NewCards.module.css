@@ -21,7 +21,7 @@
 
 .inputContainer {
     width: 100%;
-    margin: 10px auto auto 14px;
+    margin: 30px auto auto 14px;
 }
 
 
@@ -91,6 +91,9 @@ button {
     line-height: 15px;
     word-wrap: break-word;
     overflow: hidden;
+    position: relative;
+    top: 12px;
+    left: 1px;
 }
 
 

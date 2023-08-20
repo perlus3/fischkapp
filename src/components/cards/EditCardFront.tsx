@@ -1,27 +1,15 @@
 import React, { useRef } from 'react';
 
 import deleteButton from '../../assets/deleteButton.png';
-import styles from './Cards.module.css';
+import styles from './NewCards.module.css';
+import { handleTextareaInput } from './EditCardBack.tsx';
 
-export const handleTextareaInput = (
-  ref: React.RefObject<HTMLTextAreaElement>,
-) => {
-  if (ref.current) {
-    const { current } = ref;
-    current.style.height = 'auto';
-    current.style.height = `${current.scrollHeight}px`;
-  }
-};
-
-export const CardBack = () => {
+export const EditCardFront = () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   return (
     <div className={styles.container}>
       <div className={styles.textAndButtonContainer}>
-        <div className={styles.caption}>
-          aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssaaaaaaaaaa
-        </div>
         <div className={styles.icon}>
           <img src={deleteButton} alt="delete button" />
         </div>
@@ -34,7 +22,7 @@ export const CardBack = () => {
         />
       </div>
       <div className={styles.buttonContainer}>
-        <button className={styles.cancelButton}>Back</button>
+        <button className={styles.cancelButton}>Cancel</button>
         <button className={styles.nextButton}>Save</button>
       </div>
     </div>
