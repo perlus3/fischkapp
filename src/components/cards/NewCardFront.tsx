@@ -23,7 +23,6 @@ export const NewCardFront = (props: Props) => {
     setOpenSecondSide((prevState) => !prevState);
   };
 
-  // console.log(title);
   return (
     <>
       {openSecondSide ? (

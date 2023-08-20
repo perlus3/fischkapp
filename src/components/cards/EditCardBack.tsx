@@ -27,20 +27,58 @@ export const EditCardBack = (props: Props) => {
     setSecondSideTitle(e.target.value);
   };
 
-  const saveDataToLocalStorage = () => {
-    localStorage.setItem(`${props.title}`, secondSideTitle);
-    props.closeWindow();
+  const checkValueExists = (valueToCheck: string) => {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key) {
+        const value = localStorage.getItem(key);
+        if (value === valueToCheck) {
+          return true;
+        }
+      }
+    }
+    return false;
   };
 
-  console.log(secondSideTitle);
+  const saveDataToLocalStorage = () => {
+    try {
+      const secondTitleExists = checkValueExists(secondSideTitle);
+      if (!secondTitleExists) {
+        const itemInLocalStorage = localStorage.getItem(`${props.title}`);
+        if (itemInLocalStorage) {
+          console.log('wybrany element istnieje:', itemInLocalStorage);
+        }
+
+        if (props.title !== '' || secondSideTitle !== '') {
+          localStorage.setItem(`${props.title}`, secondSideTitle);
+        }
+        console.log('title or secondSideTitle is empty');
+      }
+      console.log(`${secondSideTitle} istnieje w localstorage`);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      props.closeWindow();
+    }
+  };
+
+  const deleteDataFromLocalStorage = () => {
+    try {
+      localStorage.removeItem(`${props.title}`);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      props.closeWindow();
+    }
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.textAndButtonContainer}>
         <div className={styles.caption}>{props.title}</div>
-        <div className={styles.icon}>
+        <button onClick={deleteDataFromLocalStorage} className={styles.icon}>
           <img src={deleteButton} alt="delete button" />
-        </div>
+        </button>
       </div>
       <div className={styles.inputContainer}>
         <textarea
