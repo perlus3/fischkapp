@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './AppHeader.module.css';
 import logo from '../../assets/logo.png';
-import addButton from '../../assets/addButton.png';
+import { NewCardFront } from '../cards/NewCardFront.tsx';
 
 export const AppHeader = () => {
+  const [isAddingNewCardWindowOpen, setIsAddingNewCardWindowOpen] =
+    useState(false);
+
+  const openAddingNewCard = () => {
+    setIsAddingNewCardWindowOpen((prevState) => !prevState);
+  };
+
   return (
     <>
       <header className={styles.header}>
@@ -12,9 +19,12 @@ export const AppHeader = () => {
           <span>Cards: 0</span>
         </div>
         <div className={styles.buttonContainer}>
-          <img src={addButton} alt="Logo" />
+          <button onClick={() => openAddingNewCard()}>+</button>
         </div>
       </header>
+      {isAddingNewCardWindowOpen ? (
+        <NewCardFront closeWindow={openAddingNewCard} />
+      ) : null}
     </>
   );
 };

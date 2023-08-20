@@ -17,9 +17,9 @@ function App() {
       <AppHeader />
       {/*<CardsList />*/}
       {/*<BackCard />*/}
-      <NewCardFront />
+      {/*<NewCardFront />*/}
       {/*<EditCardFront />*/}
-      <EditCardBack />
+      {/*<EditCardBack />*/}
     </AppLayout>
   );
 }

@@ -1,30 +1,65 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import styles from './NewCards.module.css';
-import { handleTextareaInput } from './EditCardBack.tsx';
+import { EditCardBack, handleTextareaInput } from './EditCardBack.tsx';
 import editButton from '../../assets/editButton.png';
+import { EditCardFront } from './EditCardFront.tsx';
 
-export const NewCardFront = () => {
+interface Props {
+  closeWindow: () => void;
+}
+
+export const NewCardFront = (props: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [openSecondSide, setOpenSecondSide] = useState(false);
+  const [title, setTitle] = useState('');
+
+  const saveTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
+    setTitle(value);
+  };
+
+  const openCardBackSide = () => {
+    setOpenSecondSide((prevState) => !prevState);
+  };
 
   return (
-    <div className={styles.layoutContainer}>
-      <div className={styles.container}>
-        <div className={styles.icon}>
-          <img src={editButton} alt="edit-button" />
+    <>
+      {openSecondSide ? (
+        <EditCardBack
+          title={title}
+          goBack={openCardBackSide}
+          closeWindow={props.closeWindow}
+        />
+      ) : (
+        <div className={styles.layoutContainer}>
+          <div className={styles.container}>
+            <div className={styles.icon}>
+              <img src={editButton} alt="edit-button" />
+            </div>
+            <div className={styles.inputContainer}>
+              <textarea
+                ref={textareaRef}
+                className={styles.input}
+                onInput={() => handleTextareaInput(textareaRef)}
+                value={title}
+                onChange={saveTitle}
+              />
+            </div>
+            <div className={styles.buttonContainer}>
+              <button
+                onClick={() => props.closeWindow()}
+                className={styles.cancelButton}
+              >
+                Cancel
+              </button>
+              <button onClick={openCardBackSide} className={styles.nextButton}>
+                Next
+              </button>
+            </div>
+          </div>
         </div>
-        <div className={styles.inputContainer}>
-          <textarea
-            ref={textareaRef}
-            className={styles.input}
-            onInput={() => handleTextareaInput(textareaRef)}
-          />
-        </div>
-        <div className={styles.buttonContainer}>
-          <button className={styles.cancelButton}>Cancel</button>
-          <button className={styles.nextButton}>Next</button>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
