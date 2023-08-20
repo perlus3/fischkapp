@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import deleteButton from '../../assets/deleteButton.png';
 import styles from './NewCards.module.css';
@@ -13,13 +13,31 @@ export const handleTextareaInput = (
   }
 };
 
-export const EditCardBack = () => {
+interface Props {
+  title: string;
+  goBack: () => void;
+  closeWindow: () => void;
+}
+
+export const EditCardBack = (props: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [secondSideTitle, setSecondSideTitle] = useState('');
+
+  const saveTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setSecondSideTitle(e.target.value);
+  };
+
+  const saveDataToLocalStorage = () => {
+    localStorage.setItem(`${props.title}`, secondSideTitle);
+    props.closeWindow();
+  };
+
+  console.log(secondSideTitle);
 
   return (
     <div className={styles.container}>
       <div className={styles.textAndButtonContainer}>
-        <div className={styles.caption}>Fish</div>
+        <div className={styles.caption}>{props.title}</div>
         <div className={styles.icon}>
           <img src={deleteButton} alt="delete button" />
         </div>
@@ -29,11 +47,19 @@ export const EditCardBack = () => {
           ref={textareaRef}
           className={styles.input}
           onInput={() => handleTextareaInput(textareaRef)}
+          onChange={saveTitle}
         />
       </div>
       <div className={styles.buttonContainer}>
-        <button className={styles.cancelButton}>Back</button>
-        <button className={styles.nextButton}>Save</button>
+        <button onClick={() => props.goBack()} className={styles.cancelButton}>
+          Back
+        </button>
+        <button
+          onClick={() => saveDataToLocalStorage()}
+          className={styles.nextButton}
+        >
+          Save
+        </button>
       </div>
     </div>
   );
