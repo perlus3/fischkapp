@@ -8,15 +8,14 @@ export const handleTextareaInput = (
 ) => {
   if (ref.current) {
     const { current } = ref;
-    current.style.height = 'auto';
     current.style.height = `${current.scrollHeight}px`;
   }
 };
 
 interface Props {
-  title: string;
-  goBack: () => void;
-  closeWindow: () => void;
+  title?: string;
+  goBack?: () => void;
+  closeWindow?: () => void;
 }
 
 export const EditCardBack = (props: Props) => {
@@ -58,7 +57,9 @@ export const EditCardBack = (props: Props) => {
     } catch (e) {
       console.log(e);
     } finally {
-      props.closeWindow();
+      if (props.closeWindow) {
+        props.closeWindow();
+      }
     }
   };
 
@@ -68,7 +69,9 @@ export const EditCardBack = (props: Props) => {
     } catch (e) {
       console.log(e);
     } finally {
-      props.closeWindow();
+      if (props.closeWindow) {
+        props.closeWindow();
+      }
     }
   };
 
@@ -89,7 +92,10 @@ export const EditCardBack = (props: Props) => {
         />
       </div>
       <div className={styles.buttonContainer}>
-        <button onClick={() => props.goBack()} className={styles.cancelButton}>
+        <button
+          onClick={() => props.goBack?.()}
+          className={styles.cancelButton}
+        >
           Back
         </button>
         <button

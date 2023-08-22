@@ -16,7 +16,8 @@ function App() {
     <AppLayout>
       <AppHeader />
       {/*<CardsList />*/}
-      {/*<BackCard />*/}
+      <FrontCard />
+      <BackCard />
       {/*<NewCardFront />*/}
       {/*<EditCardFront />*/}
       {/*<EditCardBack />*/}

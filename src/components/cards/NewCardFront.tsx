@@ -6,7 +6,7 @@ import editButton from '../../assets/editButton.png';
 import { EditCardFront } from './EditCardFront.tsx';
 
 interface Props {
-  closeWindow: () => void;
+  closeWindow?: () => void;
 }
 
 export const NewCardFront = (props: Props) => {
@@ -23,6 +23,14 @@ export const NewCardFront = (props: Props) => {
     setOpenSecondSide((prevState) => !prevState);
   };
 
+  const handleTextareaKeyDown = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>,
+  ) => {
+    if (e.key === 'Enter') {
+      openCardBackSide();
+    }
+  };
+
   return (
     <>
       {openSecondSide ? (
@@ -34,9 +42,6 @@ export const NewCardFront = (props: Props) => {
       ) : (
         <div className={styles.layoutContainer}>
           <div className={styles.container}>
-            <div className={styles.icon}>
-              <img src={editButton} alt="edit-button" />
-            </div>
             <div className={styles.inputContainer}>
               <textarea
                 ref={textareaRef}
@@ -44,11 +49,12 @@ export const NewCardFront = (props: Props) => {
                 onInput={() => handleTextareaInput(textareaRef)}
                 value={title}
                 onChange={saveTitle}
+                onKeyDown={handleTextareaKeyDown}
               />
             </div>
             <div className={styles.buttonContainer}>
               <button
-                onClick={() => props.closeWindow()}
+                onClick={() => props.closeWindow?.()}
                 className={styles.cancelButton}
               >
                 Cancel
