@@ -14,6 +14,7 @@ export const handleTextareaInput = (
 
 interface Props {
   title?: string;
+  itemKey?: string;
   goBack?: () => void;
   closeWindow?: () => void;
 }
@@ -41,13 +42,16 @@ export const EditCardBack = (props: Props) => {
 
   const saveDataToLocalStorage = () => {
     try {
-      const secondTitleExists = checkValueExists(secondSideTitle);
-      if (!secondTitleExists) {
+      const valueExists = checkValueExists(secondSideTitle);
+      if (!valueExists) {
         const itemInLocalStorage = localStorage.getItem(`${props.title}`);
+        console.log(itemInLocalStorage, 'itemInLocalStorage');
         if (itemInLocalStorage) {
           console.log('wybrany element istnieje:', itemInLocalStorage);
         }
-
+        if (props.itemKey) {
+          localStorage.removeItem(props.itemKey);
+        }
         if (props.title !== '' || secondSideTitle !== '') {
           localStorage.setItem(`${props.title}`, secondSideTitle);
         }
@@ -57,21 +61,20 @@ export const EditCardBack = (props: Props) => {
     } catch (e) {
       console.log(e);
     } finally {
-      if (props.closeWindow) {
-        props.closeWindow();
-      }
+      props.closeWindow?.();
+      props.goBack?.();
     }
   };
 
   const deleteDataFromLocalStorage = () => {
     try {
+      console.log(props.title);
       localStorage.removeItem(`${props.title}`);
     } catch (e) {
       console.log(e);
     } finally {
-      if (props.closeWindow) {
-        props.closeWindow();
-      }
+      props.closeWindow?.();
+      props.goBack?.();
     }
   };
 

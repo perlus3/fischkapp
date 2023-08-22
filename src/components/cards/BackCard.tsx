@@ -8,6 +8,7 @@ import { EditCardBack } from './EditCardBack.tsx';
 export const BackCard = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [item, setItem] = useState('');
+  const [itemKey, setItemKey] = useState('');
 
   const handleEditClick = () => {
     setIsEditing((prevState) => !prevState);
@@ -16,6 +17,7 @@ export const BackCard = () => {
   useEffect(() => {
     const storedItem = localStorage.key(0);
     if (storedItem) {
+      setItemKey(storedItem);
       const storedValue = localStorage.getItem(storedItem);
       if (storedValue) {
         setItem(storedValue);
@@ -26,7 +28,7 @@ export const BackCard = () => {
   return (
     <>
       {isEditing ? (
-        <EditCardBack title={item} goBack={handleEditClick} />
+        <EditCardBack title={item} itemKey={itemKey} goBack={handleEditClick} />
       ) : (
         <div className={styles.card}>
           <div className={styles.text}>
