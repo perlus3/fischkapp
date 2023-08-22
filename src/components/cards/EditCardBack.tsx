@@ -21,6 +21,7 @@ interface Props {
 
 export const EditCardBack = (props: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [isDeleted, setIsDeleted] = useState(false);
   const [secondSideTitle, setSecondSideTitle] = useState('');
 
   const saveTitle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -45,7 +46,6 @@ export const EditCardBack = (props: Props) => {
       const valueExists = checkValueExists(secondSideTitle);
       if (!valueExists) {
         const itemInLocalStorage = localStorage.getItem(`${props.title}`);
-        console.log(itemInLocalStorage, 'itemInLocalStorage');
         if (itemInLocalStorage) {
           console.log('wybrany element istnieje:', itemInLocalStorage);
         }
@@ -68,46 +68,63 @@ export const EditCardBack = (props: Props) => {
 
   const deleteDataFromLocalStorage = () => {
     try {
-      console.log(props.title);
-      localStorage.removeItem(`${props.title}`);
+      const item = localStorage.getItem(`${props.itemKey}`);
+      if (item) {
+        localStorage.removeItem(`${props.itemKey}`);
+      }
     } catch (e) {
       console.log(e);
     } finally {
-      props.closeWindow?.();
-      props.goBack?.();
+      setIsDeleted(true);
+    }
+  };
+
+  const handleTextareaKeyDown = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>,
+  ) => {
+    if (e.key === 'Enter') {
+      saveDataToLocalStorage();
     }
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.textAndButtonContainer}>
-        <div className={styles.caption}>{props.title}</div>
-        <button onClick={deleteDataFromLocalStorage} className={styles.icon}>
-          <img src={deleteButton} alt="delete button" />
-        </button>
-      </div>
-      <div className={styles.inputContainer}>
-        <textarea
-          ref={textareaRef}
-          className={styles.input}
-          onInput={() => handleTextareaInput(textareaRef)}
-          onChange={saveTitle}
-        />
-      </div>
-      <div className={styles.buttonContainer}>
-        <button
-          onClick={() => props.goBack?.()}
-          className={styles.cancelButton}
-        >
-          Back
-        </button>
-        <button
-          onClick={() => saveDataToLocalStorage()}
-          className={styles.nextButton}
-        >
-          Save
-        </button>
-      </div>
-    </div>
+    <>
+      {isDeleted ? null : (
+        <div className={styles.container}>
+          <div className={styles.textAndButtonContainer}>
+            <div className={styles.caption}>{props.title}</div>
+            <button
+              onClick={deleteDataFromLocalStorage}
+              className={styles.icon}
+            >
+              <img src={deleteButton} alt="delete button" />
+            </button>
+          </div>
+          <div className={styles.inputContainer}>
+            <textarea
+              ref={textareaRef}
+              className={styles.input}
+              onInput={() => handleTextareaInput(textareaRef)}
+              onChange={saveTitle}
+              onKeyDown={handleTextareaKeyDown}
+            />
+          </div>
+          <div className={styles.buttonContainer}>
+            <button
+              onClick={() => props.goBack?.()}
+              className={styles.cancelButton}
+            >
+              Back
+            </button>
+            <button
+              onClick={() => saveDataToLocalStorage()}
+              className={styles.nextButton}
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };

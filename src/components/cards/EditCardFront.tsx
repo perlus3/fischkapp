@@ -18,16 +18,21 @@ export const EditCardFront = (props: Props) => {
   };
 
   const handleDeleteClick = () => {
-    const item = localStorage.key(0);
-    if (item) {
-      localStorage.removeItem(item);
+    try {
+      const item = localStorage.key(0);
+      if (item) {
+        localStorage.removeItem(item);
+        setIsDeleted(true);
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
       setIsDeleted(true);
     }
   };
 
   const renameStorageItem = () => {
     try {
-      console.log(props.value);
       if (props.value) {
         const storageItemValue = localStorage.getItem(props.value);
         localStorage.removeItem(props.value);

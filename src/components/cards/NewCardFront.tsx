@@ -2,8 +2,6 @@ import React, { useRef, useState } from 'react';
 
 import styles from './NewCards.module.css';
 import { EditCardBack, handleTextareaInput } from './EditCardBack.tsx';
-import editButton from '../../assets/editButton.png';
-import { EditCardFront } from './EditCardFront.tsx';
 
 interface Props {
   closeWindow?: () => void;

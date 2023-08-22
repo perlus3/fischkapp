@@ -7,6 +7,7 @@ import { SingleCard } from './SingleCard.tsx';
 export const CardsList = () => {
   return (
     <div className={styles.container}>
+      {}
       <SingleCard />
     </div>
   );
