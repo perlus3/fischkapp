@@ -15,7 +15,7 @@ export const CardsList = ({
   removeFlashCard,
 }: Props) => {
   /*
-  display cards by mapping flashCards from state in App.tsx
+  display cards by mapping flashCards from state in App.tsx :)
    */
 
   return (
