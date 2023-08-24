@@ -1,38 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import editButton from '../../assets/editButton.png';
 import styles from './SingleCard.module.css';
-import { EditCardFront } from './EditCardFront.tsx';
-import { EditCardBack } from './EditCardBack.tsx';
+import { EditCardValue } from './EditCardValue.tsx';
+import { FlashCard } from '../../App.tsx';
 
-export const BackCard = () => {
+interface Props {
+  itemId: number;
+  flashCardValue?: string;
+  flashCardTitle?: string;
+  editFlashCard: (id: number, updatedFlashCard: FlashCard) => void;
+  removeFlashCard: (id: number) => void;
+}
+
+export const BackCard = ({
+  itemId,
+  flashCardValue,
+  editFlashCard,
+  removeFlashCard,
+  flashCardTitle,
+}: Props) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [item, setItem] = useState('');
-  const [itemKey, setItemKey] = useState('');
 
   const handleEditClick = () => {
     setIsEditing((prevState) => !prevState);
   };
 
-  useEffect(() => {
-    const storedItem = localStorage.key(0);
-    if (storedItem) {
-      setItemKey(storedItem);
-      const storedValue = localStorage.getItem(storedItem);
-      if (storedValue) {
-        setItem(storedValue);
-      }
-    }
-  }, [isEditing]);
-
   return (
     <>
       {isEditing ? (
-        <EditCardBack title={item} itemKey={itemKey} goBack={handleEditClick} />
+        <EditCardValue
+          itemId={itemId}
+          removeFlashCard={(id: number) => removeFlashCard(id)}
+          editFlashCard={editFlashCard}
+          flashCardValue={flashCardValue}
+          flashCardTitle={flashCardTitle}
+          goBack={handleEditClick}
+        />
       ) : (
         <div className={styles.card}>
           <div className={styles.text}>
-            <p>{item}</p>
+            <p>{flashCardValue}</p>
           </div>
           <button onClick={() => handleEditClick()} className={styles.icon}>
             <img src={editButton} alt="edit-button" />

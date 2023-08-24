@@ -2,32 +2,51 @@ import React, { useEffect, useState } from 'react';
 
 import editButton from '../../assets/editButton.png';
 import styles from './SingleCard.module.css';
-import { EditCardFront } from './EditCardFront.tsx';
+import { EditCardName } from './EditCardName.tsx';
+import { FlashCard } from '../../App.tsx';
 
-export const FrontCard = () => {
+interface Props {
+  itemId: number;
+  flashCardTitle?: string;
+  flashCardValue?: string;
+  editFlashCard: (id: number, updatedFlashCard: FlashCard) => void;
+  removeFlashCard: (id: number) => void;
+}
+
+export const FrontCard = ({
+  itemId,
+  flashCardTitle,
+  editFlashCard,
+  removeFlashCard,
+  flashCardValue,
+}: Props) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [item, setItem] = useState('');
 
   const handleEditClick = () => {
     setIsEditing((prevState) => !prevState);
   };
 
   useEffect(() => {
-    const storedItem = localStorage.key(0);
-
-    if (storedItem) {
-      setItem(storedItem);
+    if (flashCardTitle) {
+      console.log(flashCardTitle);
     }
   }, [isEditing]);
 
   return (
     <>
       {isEditing ? (
-        <EditCardFront value={item} goBack={handleEditClick} />
+        <EditCardName
+          itemId={itemId}
+          flashCardValue={flashCardValue}
+          removeFlashCard={(id: number) => removeFlashCard(id)}
+          editFlashCard={editFlashCard}
+          flashCardTitle={flashCardTitle}
+          goBack={handleEditClick}
+        />
       ) : (
         <div className={styles.card}>
           <div className={styles.text}>
-            <p>{item}</p>
+            <p>{flashCardTitle}</p>
           </div>
           <button onClick={() => handleEditClick()} className={styles.icon}>
             <img src={editButton} alt="edit-button" />
