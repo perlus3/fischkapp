@@ -19,6 +19,9 @@ function App() {
     setFlashCards((prevFlashCards) => [...prevFlashCards, newFlashCard]);
   };
 
+  /* metoda do edytowania kart, przekazana w propsach do komponentów edytujących
+   */
+
   const editFlashCard = (id: number, updatedFlashCard: FlashCard) => {
     setFlashCards((prevFlashCards) =>
       prevFlashCards.map((card) => {
@@ -29,6 +32,9 @@ function App() {
       }),
     );
   };
+
+  /* metoda do usuwania kart, przekazana w propsach do komponentów edytujących
+   */
 
   const deleteCard = (id: number) => {
     try {

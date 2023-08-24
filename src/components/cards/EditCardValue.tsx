@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import deleteButton from '../../assets/deleteButton.png';
 import styles from './NewCards.module.css';
 import { FlashCard } from '../../App.tsx';
-import { editAndRemoveCard, handleTextareaInput } from '../../utils/helpers.ts';
+import { editCard, handleTextareaInput } from '../../utils/helpers.ts';
 
 interface Props {
   flashCardValue?: string;
@@ -40,7 +40,7 @@ export const EditCardValue = ({
   };
 
   const saveEditedFlashCard = () => {
-    editAndRemoveCard(itemId, updatedFlashCard, editFlashCard, goBack);
+    editCard(itemId, updatedFlashCard, editFlashCard, goBack);
   };
 
   const handleDeleteClick = (id: number) => {
