@@ -14,10 +14,10 @@ export const CardsList = ({
   editFlashCard,
   removeFlashCard,
 }: Props) => {
-  console.log(
-    flashCards.map((item) => item.flashCardTitle),
-    'flashCardsFromLIST',
-  );
+  /*
+  display cards by mapping flashCards from state in App.tsx
+   */
+
   return (
     <div className={styles.container}>
       {flashCards?.map((item) => (

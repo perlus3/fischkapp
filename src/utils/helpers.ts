@@ -1,6 +1,9 @@
 import React from 'react';
 import { FlashCard } from '../App.tsx';
 
+/* metoda używane w kilku miejscach przeniesione do helpersów żeby nie duplikować kodu
+ */
+
 export const handleTextareaInput = (
   ref: React.RefObject<HTMLTextAreaElement>,
 ) => {
@@ -10,7 +13,7 @@ export const handleTextareaInput = (
   }
 };
 
-export const editAndRemoveCard = (
+export const editCard = (
   id: number,
   updatedFlashCard: FlashCard,
   editFlashCard: (id: number, updatedFlashCard: FlashCard) => void,

@@ -4,7 +4,7 @@ import deleteButton from '../../assets/deleteButton.png';
 import styles from './NewCards.module.css';
 
 import { FlashCard } from '../../App.tsx';
-import { editAndRemoveCard, handleTextareaInput } from '../../utils/helpers.ts';
+import { editCard, handleTextareaInput } from '../../utils/helpers.ts';
 
 interface Props {
   flashCardTitle?: string;
@@ -39,7 +39,7 @@ export const EditCardName = ({
   };
 
   const saveEditedFlashCard = () => {
-    editAndRemoveCard(itemId, updatedFlashCard, editFlashCard, goBack);
+    editCard(itemId, updatedFlashCard, editFlashCard, goBack);
   };
 
   const handleDeleteClick = (id: number) => {
