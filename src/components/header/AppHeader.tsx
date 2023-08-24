@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import styles from './AppHeader.module.css';
 import logo from '../../assets/logo.png';
-import { NewCardFront } from '../cards/NewCardFront.tsx';
+import { NewCard } from '../cards/NewCard.tsx';
+import { FlashCard } from '../../App.tsx';
 
-export const AppHeader = () => {
+interface Props {
+  saveNewCard: (newFlashCard: FlashCard) => void;
+  // removeFlashCard: (i: number) => void;
+}
+
+export const AppHeader = ({ saveNewCard }: Props) => {
   const [isAddingNewCardWindowOpen, setIsAddingNewCardWindowOpen] =
     useState(false);
 
@@ -23,7 +29,11 @@ export const AppHeader = () => {
         </div>
       </header>
       {isAddingNewCardWindowOpen ? (
-        <NewCardFront closeWindow={openAddingNewCard} />
+        <NewCard
+          saveNewCard={saveNewCard}
+          closeWindow={openAddingNewCard}
+          // removeFlashCard={(id: number) => removeFlashCard(id)}
+        />
       ) : null}
     </>
   );
