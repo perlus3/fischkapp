@@ -39,6 +39,8 @@ function App() {
     }
   };
 
+  console.log(flashcards);
+
   const addFlashCard = (newFlashCard: FlashCard) => {
     setFlashCards((prevFlashCards) => [...prevFlashCards, newFlashCard]);
   };
@@ -67,7 +69,7 @@ function App() {
   return (
     <AppLayout>
       <AppHeader
-        saveNewFlashCardToDb={() => saveNewFlashCardToDb}
+        saveNewFlashCardToDb={saveNewFlashCardToDb}
         saveNewCard={addFlashCard}
       />
       <CardsList

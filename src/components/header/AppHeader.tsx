@@ -30,7 +30,7 @@ export const AppHeader = ({ saveNewCard, saveNewFlashCardToDb }: Props) => {
       </header>
       {isAddingNewCardWindowOpen ? (
         <NewCard
-          saveNewFlashCardToDb={() => saveNewFlashCardToDb}
+          saveNewFlashCardToDb={saveNewFlashCardToDb}
           saveNewCard={saveNewCard}
           closeWindow={openAddingNewCard}
         />
