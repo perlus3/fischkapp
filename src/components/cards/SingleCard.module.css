@@ -1,4 +1,3 @@
-
 .card {
     display: flex;
     justify-content: center;
@@ -7,17 +6,53 @@
     background: #ffffff;
     height: auto;
     min-height: 188px;
-    margin: 20px auto;
+    margin: 10px auto;
     border: 1px solid #ebebec;
     border-radius: 15px;
+    position: relative;
+    perspective: 1000px;
+    cursor: pointer;
+    transition: transform 1s;
+    transform-style: preserve-3d;
 }
 
+.cardFlip {
+    transform: rotateY(180deg);
+}
+
+.cardContainer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 1s, opacity 1s ease-in-out;
+}
+
+.frontCard,
+.backCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: opacity 1s ease-in-out; /* Dodajmy również transition dla przeźroczystości */
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.backCard {
+    transform: rotateY(180deg);
+}
 
 .text {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto 20px;
+    margin: auto;
     width: 100%;
 }
 
@@ -34,8 +69,8 @@ p {
 
 .icon {
     position: absolute;
-    right: -15px;
-    align-self: flex-start;
+    top: 0;
+    right: -33px;
     background: none;
     border: none;
     padding: 0;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './CardsList.module.css';
-import { SingleCard } from './SingleCard.tsx';
+import { SingleFlashCard } from './SingleFlashCard.tsx';
 import { FlashCard } from '../../App.tsx';
 
 interface Props {
@@ -14,14 +14,10 @@ export const CardsList = ({
   editFlashCard,
   removeFlashCard,
 }: Props) => {
-  /*
-  display cards by mapping flashCards from state in App.tsx :)
-   */
-
   return (
     <div className={styles.container}>
       {flashCards?.map((item) => (
-        <SingleCard
+        <SingleFlashCard
           key={item.id}
           itemId={item.id}
           flashCardTitle={item.flashCardTitle}
