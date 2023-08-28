@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { AppHeader } from './components/header/AppHeader.tsx';
 import { AppLayout } from './components/layout/AppLayout.tsx';
@@ -15,12 +15,33 @@ export interface FlashCard {
 function App() {
   const [flashcards, setFlashCards] = useState<FlashCard[]>([]);
 
+  const saveNewFlashCardToDb = async (newFlashCard: FlashCard) => {
+    const url = 'https://training.nerdbord.io/api/v1/fischkapp/flashcards';
+    const token = 'secret_token';
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          front: newFlashCard.flashCardTitle,
+          back: newFlashCard.flashCardValue,
+        }),
+      });
+
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch (error) {
+      console.error('Wystąpił błąd:', error);
+    }
+  };
+
   const addFlashCard = (newFlashCard: FlashCard) => {
     setFlashCards((prevFlashCards) => [...prevFlashCards, newFlashCard]);
   };
-
-  /* metoda do edytowania kart, przekazana w propsach do komponentów edytujących
-   */
 
   const editFlashCard = (id: number, updatedFlashCard: FlashCard) => {
     setFlashCards((prevFlashCards) =>
@@ -33,9 +54,6 @@ function App() {
     );
   };
 
-  /* metoda do usuwania kart, przekazana w propsach do komponentów edytujących
-   */
-
   const deleteCard = (id: number) => {
     try {
       setFlashCards((prevFlashCards) =>
@@ -43,18 +61,15 @@ function App() {
       );
     } catch (e) {
       console.log(e);
-    } finally {
-      // setIsDeleted(true);
     }
   };
 
-  useEffect(() => {
-    console.log('flashCards', flashcards);
-  }, [flashcards]);
-
   return (
     <AppLayout>
-      <AppHeader saveNewCard={addFlashCard} />
+      <AppHeader
+        saveNewFlashCardToDb={() => saveNewFlashCardToDb}
+        saveNewCard={addFlashCard}
+      />
       <CardsList
         flashCards={flashcards}
         editFlashCard={editFlashCard}

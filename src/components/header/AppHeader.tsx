@@ -6,9 +6,10 @@ import { FlashCard } from '../../App.tsx';
 
 interface Props {
   saveNewCard: (newFlashCard: FlashCard) => void;
+  saveNewFlashCardToDb: (newFlashCard: FlashCard) => void;
 }
 
-export const AppHeader = ({ saveNewCard }: Props) => {
+export const AppHeader = ({ saveNewCard, saveNewFlashCardToDb }: Props) => {
   const [isAddingNewCardWindowOpen, setIsAddingNewCardWindowOpen] =
     useState(false);
 
@@ -28,7 +29,11 @@ export const AppHeader = ({ saveNewCard }: Props) => {
         </div>
       </header>
       {isAddingNewCardWindowOpen ? (
-        <NewCard saveNewCard={saveNewCard} closeWindow={openAddingNewCard} />
+        <NewCard
+          saveNewFlashCardToDb={() => saveNewFlashCardToDb}
+          saveNewCard={saveNewCard}
+          closeWindow={openAddingNewCard}
+        />
       ) : null}
     </>
   );
