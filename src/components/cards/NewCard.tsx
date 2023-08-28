@@ -1,19 +1,16 @@
 import React, { useRef, useState } from 'react';
 
 import styles from './NewCards.module.css';
-import { handleTextareaInput } from './EditCardValue.tsx';
 import { FlashCard } from '../../App.tsx';
 import deleteButton from '../../assets/deleteButton.png';
+import { handleTextareaInput } from '../../utils/helpers.ts';
 
 interface Props {
   closeWindow?: () => void;
   saveNewCard: (newFlashCard: FlashCard) => void;
 }
 
-export const NewCard = ({
-  closeWindow,
-  saveNewCard, // removeFlashCard,
-}: Props) => {
+export const NewCard = ({ closeWindow, saveNewCard }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const textareaRefSecond = useRef<HTMLTextAreaElement>(null);
   const [openSecondSide, setOpenSecondSide] = useState(false);
@@ -64,32 +61,37 @@ export const NewCard = ({
   return (
     <>
       {openSecondSide ? (
-        <div className={styles.container}>
-          <div className={styles.textAndButtonContainer}>
-            <div className={styles.caption}>{flashCard.name}</div>
-            <button onClick={openCardBackSide} className={styles.icon}>
-              <img src={deleteButton} alt="delete button" />
-            </button>
-          </div>
-          <div className={styles.inputContainer}>
-            <textarea
-              ref={textareaRefSecond}
-              className={styles.input}
-              onInput={() => handleTextareaInput(textareaRefSecond)}
-              onChange={(e) => handleInputChange(e, 'value')}
-              onKeyDown={handleTextareaKeyDown}
-            />
-          </div>
-          <div className={styles.buttonContainer}>
-            <button onClick={openCardBackSide} className={styles.cancelButton}>
-              Back
-            </button>
-            <button
-              onClick={() => saveNewFlashCard()}
-              className={styles.nextButton}
-            >
-              Save
-            </button>
+        <div className={styles.layoutContainer}>
+          <div className={styles.container}>
+            <div className={styles.textAndButtonContainer}>
+              <div className={styles.caption}>{flashCard.name}</div>
+              <button onClick={openCardBackSide} className={styles.icon}>
+                <img src={deleteButton} alt="delete button" />
+              </button>
+            </div>
+            <div className={styles.inputContainer}>
+              <textarea
+                ref={textareaRefSecond}
+                className={styles.input}
+                onInput={() => handleTextareaInput(textareaRefSecond)}
+                onChange={(e) => handleInputChange(e, 'value')}
+                onKeyDown={handleTextareaKeyDown}
+              />
+            </div>
+            <div className={styles.buttonContainer}>
+              <button
+                onClick={openCardBackSide}
+                className={styles.cancelButton}
+              >
+                Back
+              </button>
+              <button
+                onClick={() => saveNewFlashCard()}
+                className={styles.nextButton}
+              >
+                Save
+              </button>
+            </div>
           </div>
         </div>
       ) : (

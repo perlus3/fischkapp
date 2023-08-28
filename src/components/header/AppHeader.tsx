@@ -6,7 +6,6 @@ import { FlashCard } from '../../App.tsx';
 
 interface Props {
   saveNewCard: (newFlashCard: FlashCard) => void;
-  // removeFlashCard: (i: number) => void;
 }
 
 export const AppHeader = ({ saveNewCard }: Props) => {
@@ -29,11 +28,7 @@ export const AppHeader = ({ saveNewCard }: Props) => {
         </div>
       </header>
       {isAddingNewCardWindowOpen ? (
-        <NewCard
-          saveNewCard={saveNewCard}
-          closeWindow={openAddingNewCard}
-          // removeFlashCard={(id: number) => removeFlashCard(id)}
-        />
+        <NewCard saveNewCard={saveNewCard} closeWindow={openAddingNewCard} />
       ) : null}
     </>
   );
