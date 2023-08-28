@@ -8,9 +8,14 @@ import { handleTextareaInput } from '../../utils/helpers.ts';
 interface Props {
   closeWindow?: () => void;
   saveNewCard: (newFlashCard: FlashCard) => void;
+  saveNewFlashCardToDb: (newFlashCard: FlashCard) => void;
 }
 
-export const NewCard = ({ closeWindow, saveNewCard }: Props) => {
+export const NewCard = ({
+  closeWindow,
+  saveNewCard,
+  saveNewFlashCardToDb,
+}: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const textareaRefSecond = useRef<HTMLTextAreaElement>(null);
   const [openSecondSide, setOpenSecondSide] = useState(false);
@@ -50,6 +55,7 @@ export const NewCard = ({ closeWindow, saveNewCard }: Props) => {
         flashCardTitle: flashCard.name,
         flashCardValue: flashCard.value,
       };
+      saveNewFlashCardToDb(newFlashCard);
       saveNewCard(newFlashCard);
     } catch (e) {
       console.log(e);
