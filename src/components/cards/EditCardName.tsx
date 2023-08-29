@@ -10,10 +10,11 @@ interface Props {
   flashCardTitle?: string;
   flashCardValue?: string;
   goBack?: () => void;
-  editFlashCard: (id: number, updatedFlashCard: FlashCard) => void;
-  editFlashCardFromDb: (id: number, updatedFlashCard: FlashCard) => void;
-  removeFlashCard: (id: number) => void;
-  itemId: number;
+  editFlashCard: (id: string, updatedFlashCard: FlashCard) => void;
+  editFlashCardFromDb: (id: string, updatedFlashCard: FlashCard) => void;
+  removeFlashCard: (id: string) => void;
+  deleteFlashCardFromDb: (id: string) => void;
+  itemId: string;
 }
 export const EditCardName = ({
   itemId,
@@ -23,20 +24,21 @@ export const EditCardName = ({
   editFlashCardFromDb,
   removeFlashCard,
   flashCardValue,
+  deleteFlashCardFromDb,
 }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isDeleted, setIsDeleted] = useState(false);
   const [updatedFlashCard, setUpdatedFlashCard] = useState({
-    id: itemId,
-    flashCardTitle: flashCardTitle,
-    flashCardValue: flashCardValue,
+    _id: itemId,
+    front: flashCardTitle,
+    back: flashCardValue,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setUpdatedFlashCard((prevFlashCard) => ({
       ...prevFlashCard,
-      flashCardTitle: value,
+      front: value,
     }));
   };
 
@@ -50,9 +52,10 @@ export const EditCardName = ({
     );
   };
 
-  const handleDeleteClick = (id: number) => {
+  const handleDeleteClick = (id: string) => {
     try {
       removeFlashCard(id);
+      deleteFlashCardFromDb(id);
     } catch (e) {
       console.log(e);
     } finally {

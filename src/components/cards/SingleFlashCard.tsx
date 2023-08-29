@@ -6,12 +6,13 @@ import { EditCardValue } from './EditCardValue.tsx';
 import { FlashCard } from '../../App.tsx';
 
 interface Props {
-  itemId: number;
+  itemId: string;
   flashCardTitle?: string;
   flashCardValue?: string;
-  editFlashCard: (id: number, updatedFlashCard: FlashCard) => void;
-  editFlashCardFromDb: (id: number, updatedFlashCard: FlashCard) => void;
-  removeFlashCard: (id: number) => void;
+  editFlashCard: (id: string, updatedFlashCard: FlashCard) => void;
+  editFlashCardFromDb: (id: string, updatedFlashCard: FlashCard) => void;
+  removeFlashCard: (id: string) => void;
+  deleteFlashCardFromDb: (id: string) => void;
 }
 
 export const SingleFlashCard = ({
@@ -21,6 +22,7 @@ export const SingleFlashCard = ({
   editFlashCard,
   editFlashCardFromDb,
   removeFlashCard,
+  deleteFlashCardFromDb,
 }: Props) => {
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [editFlashCardTitle, setEditFlashCardTitle] = useState(false);
@@ -47,6 +49,7 @@ export const SingleFlashCard = ({
         itemId={itemId}
         flashCardValue={flashCardValue}
         removeFlashCard={removeFlashCard}
+        deleteFlashCardFromDb={deleteFlashCardFromDb}
         editFlashCard={editFlashCard}
         editFlashCardFromDb={editFlashCardFromDb}
         flashCardTitle={flashCardTitle}
@@ -61,6 +64,7 @@ export const SingleFlashCard = ({
         itemId={itemId}
         flashCardValue={flashCardValue}
         removeFlashCard={removeFlashCard}
+        deleteFlashCardFromDb={deleteFlashCardFromDb}
         editFlashCard={editFlashCard}
         editFlashCardFromDb={editFlashCardFromDb}
         flashCardTitle={flashCardTitle}

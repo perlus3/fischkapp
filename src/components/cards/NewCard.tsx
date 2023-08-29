@@ -20,7 +20,7 @@ export const NewCard = ({
   const textareaRefSecond = useRef<HTMLTextAreaElement>(null);
   const [openSecondSide, setOpenSecondSide] = useState(false);
   const [flashCard, setFlashCard] = useState({
-    id: Date.now(),
+    _id: '',
     name: '',
     value: '',
   });
@@ -51,7 +51,7 @@ export const NewCard = ({
   const saveNewFlashCard = () => {
     try {
       const newFlashCard: FlashCard = {
-        id: Date.now(),
+        _id: '',
         front: flashCard.name,
         back: flashCard.value,
       };
