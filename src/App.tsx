@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { AppHeader } from './components/header/AppHeader.tsx';
 import { AppLayout } from './components/layout/AppLayout.tsx';
@@ -8,12 +8,29 @@ import './App.css';
 
 export interface FlashCard {
   id: number;
-  flashCardTitle?: string;
-  flashCardValue?: string;
+  front?: string;
+  back?: string;
 }
 
 function App() {
   const [flashcards, setFlashCards] = useState<FlashCard[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const url = 'https://training.nerdbord.io/api/v1/fischkapp/flashcards';
+
+      try {
+        const response = await fetch(url, {
+          method: 'GET',
+        });
+        const data = await response.json();
+        console.log(data);
+        setFlashCards(data);
+      } catch (error) {
+        console.error('Wystąpił błąd:', error);
+      }
+    })();
+  }, []);
 
   const saveNewFlashCardToDb = async (newFlashCard: FlashCard) => {
     const url = 'https://training.nerdbord.io/api/v1/fischkapp/flashcards';
@@ -27,8 +44,8 @@ function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          front: newFlashCard.flashCardTitle,
-          back: newFlashCard.flashCardValue,
+          front: newFlashCard.front,
+          back: newFlashCard.back,
         }),
       });
 
@@ -60,9 +77,9 @@ function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id: id,
-          front: updatedFlashCard.flashCardTitle,
-          back: updatedFlashCard.flashCardValue,
+          id,
+          front: updatedFlashCard.front,
+          back: updatedFlashCard.back,
         }),
       });
 

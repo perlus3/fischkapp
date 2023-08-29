@@ -22,8 +22,8 @@ export const CardsList = ({
         <SingleFlashCard
           key={item.id}
           itemId={item.id}
-          flashCardTitle={item.flashCardTitle}
-          flashCardValue={item.flashCardValue}
+          flashCardTitle={item.front}
+          flashCardValue={item.back}
           editFlashCard={editFlashCard}
           editFlashCardFromDb={editFlashCardFromDb}
           removeFlashCard={(id: number) => removeFlashCard(id)}

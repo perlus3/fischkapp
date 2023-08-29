@@ -21,7 +21,7 @@ export const editCard = (
   goBack: (() => void) | undefined,
 ) => {
   try {
-    if (updatedFlashCard.flashCardTitle && updatedFlashCard.flashCardValue) {
+    if (updatedFlashCard.front && updatedFlashCard.back) {
       editFlashCard(id, updatedFlashCard);
       editFlashCardFromDb(id, updatedFlashCard);
     }

@@ -52,8 +52,8 @@ export const NewCard = ({
     try {
       const newFlashCard: FlashCard = {
         id: Date.now(),
-        flashCardTitle: flashCard.name,
-        flashCardValue: flashCard.value,
+        front: flashCard.name,
+        back: flashCard.value,
       };
       saveNewFlashCardToDb(newFlashCard);
       saveNewCard(newFlashCard);
