@@ -11,6 +11,7 @@ interface Props {
   goBack?: () => void;
   closeWindow?: () => void;
   editFlashCard: (id: number, updatedFlashCard: FlashCard) => void;
+  editFlashCardFromDb: (id: number, updatedFlashCard: FlashCard) => void;
   removeFlashCard: (id: number) => void;
   itemId: number;
 }
@@ -20,6 +21,7 @@ export const EditCardValue = ({
   flashCardTitle,
   goBack,
   editFlashCard,
+  editFlashCardFromDb,
   removeFlashCard,
   itemId,
 }: Props) => {
@@ -40,7 +42,13 @@ export const EditCardValue = ({
   };
 
   const saveEditedFlashCard = () => {
-    editCard(itemId, updatedFlashCard, editFlashCard, goBack);
+    editCard(
+      itemId,
+      updatedFlashCard,
+      editFlashCard,
+      editFlashCardFromDb,
+      goBack,
+    );
   };
 
   const handleDeleteClick = (id: number) => {
