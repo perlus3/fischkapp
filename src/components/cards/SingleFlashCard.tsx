@@ -10,6 +10,7 @@ interface Props {
   flashCardTitle?: string;
   flashCardValue?: string;
   editFlashCard: (id: number, updatedFlashCard: FlashCard) => void;
+  editFlashCardFromDb: (id: number, updatedFlashCard: FlashCard) => void;
   removeFlashCard: (id: number) => void;
 }
 
@@ -18,6 +19,7 @@ export const SingleFlashCard = ({
   flashCardTitle,
   flashCardValue,
   editFlashCard,
+  editFlashCardFromDb,
   removeFlashCard,
 }: Props) => {
   const [isCardFlipped, setIsCardFlipped] = useState(false);
@@ -46,6 +48,7 @@ export const SingleFlashCard = ({
         flashCardValue={flashCardValue}
         removeFlashCard={removeFlashCard}
         editFlashCard={editFlashCard}
+        editFlashCardFromDb={editFlashCardFromDb}
         flashCardTitle={flashCardTitle}
         goBack={handleEditComplete}
       />
@@ -59,6 +62,7 @@ export const SingleFlashCard = ({
         flashCardValue={flashCardValue}
         removeFlashCard={removeFlashCard}
         editFlashCard={editFlashCard}
+        editFlashCardFromDb={editFlashCardFromDb}
         flashCardTitle={flashCardTitle}
         goBack={handleEditComplete}
       />

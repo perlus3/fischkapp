@@ -45,6 +45,35 @@ function App() {
     setFlashCards((prevFlashCards) => [...prevFlashCards, newFlashCard]);
   };
 
+  const editFlashCardFromDb = async (
+    id: number,
+    updatedFlashCard: FlashCard,
+  ) => {
+    const url = 'https://training.nerdbord.io/api/v1/fischkapp/flashcards';
+    const token = 'secret_token';
+
+    try {
+      const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: id,
+          front: updatedFlashCard.flashCardTitle,
+          back: updatedFlashCard.flashCardValue,
+        }),
+      });
+
+      const result = await response.json();
+      console.log(result, 'result');
+      console.log('flashCARD EDITED');
+    } catch (error) {
+      console.error('Wystąpił błąd:', error);
+    }
+  };
+
   const editFlashCard = (id: number, updatedFlashCard: FlashCard) => {
     setFlashCards((prevFlashCards) =>
       prevFlashCards.map((card) => {
@@ -75,6 +104,7 @@ function App() {
       <CardsList
         flashCards={flashcards}
         editFlashCard={editFlashCard}
+        editFlashCardFromDb={editFlashCardFromDb}
         removeFlashCard={(id: number) => deleteCard(id)}
       />
     </AppLayout>

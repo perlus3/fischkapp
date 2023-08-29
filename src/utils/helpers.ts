@@ -17,11 +17,13 @@ export const editCard = (
   id: number,
   updatedFlashCard: FlashCard,
   editFlashCard: (id: number, updatedFlashCard: FlashCard) => void,
+  editFlashCardFromDb: (id: number, updatedFlashCard: FlashCard) => void,
   goBack: (() => void) | undefined,
 ) => {
   try {
     if (updatedFlashCard.flashCardTitle && updatedFlashCard.flashCardValue) {
       editFlashCard(id, updatedFlashCard);
+      editFlashCardFromDb(id, updatedFlashCard);
     }
   } catch (e) {
     console.log(e);
