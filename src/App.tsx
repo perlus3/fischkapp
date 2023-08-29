@@ -7,7 +7,7 @@ import { CardsList } from './components/cards/CardsList.tsx';
 import './App.css';
 
 export interface FlashCard {
-  id: number;
+  _id: string;
   front?: string;
   back?: string;
 }
@@ -24,8 +24,8 @@ function App() {
           method: 'GET',
         });
         const data = await response.json();
-        console.log(data);
         setFlashCards(data);
+        console.log(data);
       } catch (error) {
         console.error('Wystąpił błąd:', error);
       }
@@ -50,23 +50,21 @@ function App() {
       });
 
       const responseData = await response.json();
-      console.log(responseData);
+      console.log(responseData, 'NEW FLASHCARD');
     } catch (error) {
       console.error('Wystąpił błąd:', error);
     }
   };
-
-  console.log(flashcards);
 
   const addFlashCard = (newFlashCard: FlashCard) => {
     setFlashCards((prevFlashCards) => [...prevFlashCards, newFlashCard]);
   };
 
   const editFlashCardFromDb = async (
-    id: number,
+    id: string,
     updatedFlashCard: FlashCard,
   ) => {
-    const url = 'https://training.nerdbord.io/api/v1/fischkapp/flashcards';
+    const url = `https://training.nerdbord.io/api/v1/fischkapp/flashcards/${id}`;
     const token = 'secret_token';
 
     try {
@@ -77,7 +75,7 @@ function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id,
+          _id: id,
           front: updatedFlashCard.front,
           back: updatedFlashCard.back,
         }),
@@ -85,16 +83,15 @@ function App() {
 
       const result = await response.json();
       console.log(result, 'result');
-      console.log('flashCARD EDITED');
     } catch (error) {
       console.error('Wystąpił błąd:', error);
     }
   };
 
-  const editFlashCard = (id: number, updatedFlashCard: FlashCard) => {
+  const editFlashCard = (id: string, updatedFlashCard: FlashCard) => {
     setFlashCards((prevFlashCards) =>
       prevFlashCards.map((card) => {
-        if (card.id === id) {
+        if (card._id === id) {
           return { ...card, ...updatedFlashCard };
         }
         return card;
@@ -102,13 +99,33 @@ function App() {
     );
   };
 
-  const deleteCard = (id: number) => {
+  const deleteCard = (id: string) => {
     try {
       setFlashCards((prevFlashCards) =>
-        prevFlashCards.filter((card) => card.id !== id),
+        prevFlashCards.filter((card) => card._id !== id),
       );
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const deleteFlashCardFromDb = async (id: string) => {
+    const url = `https://training.nerdbord.io/api/v1/fischkapp/flashcards/${id}`;
+    const token = 'secret_token';
+
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const result = await response.json();
+      console.log(result, 'result');
+    } catch (error) {
+      console.error('Wystąpił błąd:', error);
     }
   };
 
@@ -122,7 +139,8 @@ function App() {
         flashCards={flashcards}
         editFlashCard={editFlashCard}
         editFlashCardFromDb={editFlashCardFromDb}
-        removeFlashCard={(id: number) => deleteCard(id)}
+        removeFlashCard={(id: string) => deleteCard(id)}
+        deleteFlashCardFromDb={(id: string) => deleteFlashCardFromDb(id)}
       />
     </AppLayout>
   );
