@@ -60,7 +60,7 @@ function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          _id: id,
+          id: id,
           front: updatedFlashCard.flashCardTitle,
           back: updatedFlashCard.flashCardValue,
         }),
