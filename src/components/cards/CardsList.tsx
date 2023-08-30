@@ -6,15 +6,15 @@ import { FlashCard } from '../../App.tsx';
 
 interface Props {
   flashCards: FlashCard[];
-  editFlashCard: (id: string, updatedFlashCard: FlashCard) => void;
+  // editFlashCard: (id: string, updatedFlashCard: FlashCard) => void;
   editFlashCardFromDb: (id: string, updatedFlashCard: FlashCard) => void;
-  removeFlashCard: (id: string) => void;
+  // removeFlashCard: (id: string) => void;
   deleteFlashCardFromDb: (id: string) => void;
 }
 export const CardsList = ({
   flashCards,
-  editFlashCard,
-  removeFlashCard,
+  // editFlashCard,
+  // removeFlashCard,
   editFlashCardFromDb,
   deleteFlashCardFromDb,
 }: Props) => {
@@ -26,9 +26,9 @@ export const CardsList = ({
           itemId={item._id}
           flashCardTitle={item.front}
           flashCardValue={item.back}
-          editFlashCard={editFlashCard}
+          // editFlashCard={editFlashCard}
           editFlashCardFromDb={editFlashCardFromDb}
-          removeFlashCard={(id: string) => removeFlashCard(id)}
+          // removeFlashCard={(id: string) => removeFlashCard(id)}
           deleteFlashCardFromDb={(id: string) => deleteFlashCardFromDb(id)}
         />
       ))}

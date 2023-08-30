@@ -5,6 +5,7 @@ import { AppLayout } from './components/layout/AppLayout.tsx';
 import { CardsList } from './components/cards/CardsList.tsx';
 
 import './App.css';
+import { NewCard } from './components/cards/NewCard.tsx';
 
 export interface FlashCard {
   _id: string;
@@ -13,7 +14,10 @@ export interface FlashCard {
 }
 
 function App() {
-  const [flashcards, setFlashCards] = useState<FlashCard[]>([]);
+  const [flashCards, setFlashCards] = useState<FlashCard[]>([]);
+  const [shouldFetchData, setShouldFetchData] = useState<boolean>(false);
+  const [isAddingNewCardWindowOpen, setIsAddingNewCardWindowOpen] =
+    useState(false);
 
   useEffect(() => {
     (async () => {
@@ -25,12 +29,13 @@ function App() {
         });
         const data = await response.json();
         setFlashCards(data);
+
         console.log(data);
       } catch (error) {
         console.error('Wystąpił błąd:', error);
       }
     })();
-  }, []);
+  }, [shouldFetchData]);
 
   const saveNewFlashCardToDb = async (newFlashCard: FlashCard) => {
     const url = 'https://training.nerdbord.io/api/v1/fischkapp/flashcards';
@@ -48,16 +53,14 @@ function App() {
           back: newFlashCard.back,
         }),
       });
-
       const responseData = await response.json();
-      console.log(responseData, 'NEW FLASHCARD');
+      if (responseData.flashcard._id) {
+        setFlashCards((prevFlashCards) => [...prevFlashCards, newFlashCard]);
+        setShouldFetchData((prevState) => !prevState);
+      }
     } catch (error) {
       console.error('Wystąpił błąd:', error);
     }
-  };
-
-  const addFlashCard = (newFlashCard: FlashCard) => {
-    setFlashCards((prevFlashCards) => [...prevFlashCards, newFlashCard]);
   };
 
   const editFlashCardFromDb = async (
@@ -82,32 +85,38 @@ function App() {
       });
 
       const result = await response.json();
-      console.log(result, 'result');
+      if (!result) {
+        console.log('error');
+      }
+      window.location.reload();
     } catch (error) {
       console.error('Wystąpił błąd:', error);
     }
   };
-
-  const editFlashCard = (id: string, updatedFlashCard: FlashCard) => {
-    setFlashCards((prevFlashCards) =>
-      prevFlashCards.map((card) => {
-        if (card._id === id) {
-          return { ...card, ...updatedFlashCard };
-        }
-        return card;
-      }),
-    );
-  };
-
-  const deleteCard = (id: string) => {
-    try {
-      setFlashCards((prevFlashCards) =>
-        prevFlashCards.filter((card) => card._id !== id),
-      );
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const addFlashCard = (newFlashCard: FlashCard) => {
+  //   setFlashCards((prevFlashCards) => [...prevFlashCards, newFlashCard]);
+  // };
+  //window.location.reload();
+  // const editFlashCard = (id: string, updatedFlashCard: FlashCard) => {
+  //   setFlashCards((prevFlashCards) =>
+  //     prevFlashCards.map((card) => {
+  //       if (card._id === id) {
+  //         return { ...card, ...updatedFlashCard };
+  //       }
+  //       return card;
+  //     }),
+  //   );
+  // };
+  //
+  // const deleteCard = (id: string) => {
+  //   try {
+  //     setFlashCards((prevFlashCards) =>
+  //       prevFlashCards.filter((card) => card._id !== id),
+  //     );
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   const deleteFlashCardFromDb = async (id: string) => {
     const url = `https://training.nerdbord.io/api/v1/fischkapp/flashcards/${id}`;
@@ -129,19 +138,28 @@ function App() {
     }
   };
 
+  const openAddingNewCard = () => {
+    setIsAddingNewCardWindowOpen((prevState: any) => !prevState);
+  };
+
   return (
     <AppLayout>
-      <AppHeader
-        saveNewFlashCardToDb={saveNewFlashCardToDb}
-        saveNewCard={addFlashCard}
-      />
-      <CardsList
-        flashCards={flashcards}
-        editFlashCard={editFlashCard}
-        editFlashCardFromDb={editFlashCardFromDb}
-        removeFlashCard={(id: string) => deleteCard(id)}
-        deleteFlashCardFromDb={(id: string) => deleteFlashCardFromDb(id)}
-      />
+      <AppHeader openAddingNewCard={openAddingNewCard} />
+      {isAddingNewCardWindowOpen ? (
+        <NewCard
+          saveNewFlashCardToDb={saveNewFlashCardToDb}
+          // saveNewCard={saveNewCard}
+          closeWindow={openAddingNewCard}
+        />
+      ) : (
+        <CardsList
+          flashCards={flashCards}
+          // editFlashCard={editFlashCard}
+          editFlashCardFromDb={editFlashCardFromDb}
+          // removeFlashCard={(id: string) => deleteCard(id)}
+          deleteFlashCardFromDb={(id: string) => deleteFlashCardFromDb(id)}
+        />
+      )}
     </AppLayout>
   );
 }

@@ -10,9 +10,9 @@ interface Props {
   flashCardTitle?: string;
   flashCardValue?: string;
   goBack?: () => void;
-  editFlashCard: (id: string, updatedFlashCard: FlashCard) => void;
+  // editFlashCard: (id: string, updatedFlashCard: FlashCard) => void;
   editFlashCardFromDb: (id: string, updatedFlashCard: FlashCard) => void;
-  removeFlashCard: (id: string) => void;
+  // removeFlashCard: (id: string) => void;
   deleteFlashCardFromDb: (id: string) => void;
   itemId: string;
 }
@@ -20,9 +20,9 @@ export const EditCardName = ({
   itemId,
   flashCardTitle,
   goBack,
-  editFlashCard,
+  // editFlashCard,
   editFlashCardFromDb,
-  removeFlashCard,
+  // removeFlashCard,
   flashCardValue,
   deleteFlashCardFromDb,
 }: Props) => {
@@ -35,6 +35,8 @@ export const EditCardName = ({
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    e.preventDefault();
+
     const { value } = e.target;
     setUpdatedFlashCard((prevFlashCard) => ({
       ...prevFlashCard,
@@ -46,7 +48,7 @@ export const EditCardName = ({
     editCard(
       itemId,
       updatedFlashCard,
-      editFlashCard,
+      // editFlashCard,
       editFlashCardFromDb,
       goBack,
     );
@@ -54,7 +56,7 @@ export const EditCardName = ({
 
   const handleDeleteClick = (id: string) => {
     try {
-      removeFlashCard(id);
+      // removeFlashCard(id);
       deleteFlashCardFromDb(id);
     } catch (e) {
       console.log(e);
@@ -67,6 +69,7 @@ export const EditCardName = ({
     e: React.KeyboardEvent<HTMLTextAreaElement>,
   ) => {
     if (e.key === 'Enter') {
+      e.preventDefault();
       saveEditedFlashCard();
     }
   };

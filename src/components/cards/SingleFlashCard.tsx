@@ -9,9 +9,9 @@ interface Props {
   itemId: string;
   flashCardTitle?: string;
   flashCardValue?: string;
-  editFlashCard: (id: string, updatedFlashCard: FlashCard) => void;
+  // editFlashCard: (id: string, updatedFlashCard: FlashCard) => void;
   editFlashCardFromDb: (id: string, updatedFlashCard: FlashCard) => void;
-  removeFlashCard: (id: string) => void;
+  // removeFlashCard: (id: string) => void;
   deleteFlashCardFromDb: (id: string) => void;
 }
 
@@ -19,9 +19,9 @@ export const SingleFlashCard = ({
   itemId,
   flashCardTitle,
   flashCardValue,
-  editFlashCard,
+  // editFlashCard,
   editFlashCardFromDb,
-  removeFlashCard,
+  // removeFlashCard,
   deleteFlashCardFromDb,
 }: Props) => {
   const [isCardFlipped, setIsCardFlipped] = useState(false);
@@ -48,9 +48,9 @@ export const SingleFlashCard = ({
       <EditCardName
         itemId={itemId}
         flashCardValue={flashCardValue}
-        removeFlashCard={removeFlashCard}
+        // removeFlashCard={removeFlashCard}
         deleteFlashCardFromDb={deleteFlashCardFromDb}
-        editFlashCard={editFlashCard}
+        // editFlashCard={editFlashCard}
         editFlashCardFromDb={editFlashCardFromDb}
         flashCardTitle={flashCardTitle}
         goBack={handleEditComplete}
@@ -63,9 +63,9 @@ export const SingleFlashCard = ({
       <EditCardValue
         itemId={itemId}
         flashCardValue={flashCardValue}
-        removeFlashCard={removeFlashCard}
+        // removeFlashCard={removeFlashCard}
         deleteFlashCardFromDb={deleteFlashCardFromDb}
-        editFlashCard={editFlashCard}
+        // editFlashCard={editFlashCard}
         editFlashCardFromDb={editFlashCardFromDb}
         flashCardTitle={flashCardTitle}
         goBack={handleEditComplete}
@@ -73,6 +73,8 @@ export const SingleFlashCard = ({
     );
   }
   const handleCardClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+
     const target = e.target as HTMLButtonElement;
     if (!target.closest('.edit-button')) {
       setIsCardFlipped(!isCardFlipped);
