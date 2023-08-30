@@ -7,13 +7,13 @@ import { handleTextareaInput } from '../../utils/helpers.ts';
 
 interface Props {
   closeWindow?: () => void;
-  saveNewCard: (newFlashCard: FlashCard) => void;
+  // saveNewCard: (newFlashCard: FlashCard) => void;
   saveNewFlashCardToDb: (newFlashCard: FlashCard) => void;
 }
 
 export const NewCard = ({
   closeWindow,
-  saveNewCard,
+  // saveNewCard,
   saveNewFlashCardToDb,
 }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -48,6 +48,14 @@ export const NewCard = ({
     }
   };
 
+  const handleTextareaKeyDownForSave = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>,
+  ) => {
+    if (e.key === 'Enter') {
+      saveNewFlashCard();
+    }
+  };
+
   const saveNewFlashCard = () => {
     try {
       const newFlashCard: FlashCard = {
@@ -56,7 +64,7 @@ export const NewCard = ({
         back: flashCard.value,
       };
       saveNewFlashCardToDb(newFlashCard);
-      saveNewCard(newFlashCard);
+      // saveNewCard(newFlashCard);
     } catch (e) {
       console.log(e);
     } finally {
@@ -81,7 +89,7 @@ export const NewCard = ({
                 className={styles.input}
                 onInput={() => handleTextareaInput(textareaRefSecond)}
                 onChange={(e) => handleInputChange(e, 'value')}
-                onKeyDown={handleTextareaKeyDown}
+                onKeyDown={handleTextareaKeyDownForSave}
               />
             </div>
             <div className={styles.buttonContainer}>

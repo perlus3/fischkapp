@@ -13,13 +13,13 @@ export const handleTextareaInput = (
 export const editCard = (
   id: string,
   updatedFlashCard: FlashCard,
-  editFlashCard: (id: string, updatedFlashCard: FlashCard) => void,
+  // editFlashCard: (id: string, updatedFlashCard: FlashCard) => void,
   editFlashCardFromDb: (id: string, updatedFlashCard: FlashCard) => void,
   goBack: (() => void) | undefined,
 ) => {
   try {
     if (updatedFlashCard.front && updatedFlashCard.back) {
-      editFlashCard(id, updatedFlashCard);
+      // editFlashCard(id, updatedFlashCard);
       editFlashCardFromDb(id, updatedFlashCard);
     }
   } catch (e) {
