@@ -1,11 +1,11 @@
-.card {
+.cardContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 90%;
     background: #ffffff;
-    height: auto;
     min-height: 188px;
+    height: auto;
     margin: 10px auto;
     border: 1px solid #ebebec;
     border-radius: 15px;
@@ -20,7 +20,7 @@
     transform: rotateY(180deg);
 }
 
-.cardContainer {
+.card {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -37,7 +37,7 @@
     height: 100%;
     position: absolute;
     backface-visibility: hidden;
-    transition: opacity 1s ease-in-out; /* Dodajmy również transition dla przeźroczystości */
+    transition: opacity 1s ease-in-out;
 }
 
 .hidden {
@@ -64,7 +64,6 @@ p {
     font-size: 16px;
     line-height: 20px;
     word-wrap: break-word;
-    margin: 30px;
 }
 
 .icon {

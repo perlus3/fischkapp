@@ -3,7 +3,7 @@ import styles from './AppHeader.module.css';
 import logo from '../../assets/logo.png';
 
 interface Props {
-  openAddingNewCard: () => void;
+  openAddingNewCard?: () => void;
 }
 
 export const AppHeader = ({ openAddingNewCard }: Props) => {
@@ -14,7 +14,9 @@ export const AppHeader = ({ openAddingNewCard }: Props) => {
         <span>Cards: 0</span>
       </div>
       <div className={styles.buttonContainer}>
-        <button onClick={openAddingNewCard}>+</button>
+        <button data-testid="addNewFlashCard" onClick={openAddingNewCard}>
+          +
+        </button>
       </div>
     </header>
   );

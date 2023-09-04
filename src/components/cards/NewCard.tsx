@@ -1,21 +1,16 @@
 import React, { useRef, useState } from 'react';
 
 import styles from './NewCards.module.css';
-import { FlashCard } from '../../App.tsx';
+import { Flashcard } from '../../App.tsx';
 import deleteButton from '../../assets/deleteButton.png';
 import { handleTextareaInput } from '../../utils/helpers.ts';
 
 interface Props {
   closeWindow?: () => void;
-  // saveNewCard: (newFlashCard: FlashCard) => void;
-  saveNewFlashCardToDb: (newFlashCard: FlashCard) => void;
+  saveNewFlashCardToDb?: (newFlashCard: Flashcard) => void;
 }
 
-export const NewCard = ({
-  closeWindow,
-  // saveNewCard,
-  saveNewFlashCardToDb,
-}: Props) => {
+export const NewCard = ({ closeWindow, saveNewFlashCardToDb }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const textareaRefSecond = useRef<HTMLTextAreaElement>(null);
   const [openSecondSide, setOpenSecondSide] = useState(false);
@@ -58,13 +53,14 @@ export const NewCard = ({
 
   const saveNewFlashCard = () => {
     try {
-      const newFlashCard: FlashCard = {
+      const newFlashCard: Flashcard = {
         _id: '',
         front: flashCard.name,
         back: flashCard.value,
       };
-      saveNewFlashCardToDb(newFlashCard);
-      // saveNewCard(newFlashCard);
+      if (saveNewFlashCardToDb) {
+        saveNewFlashCardToDb(newFlashCard);
+      }
     } catch (e) {
       console.log(e);
     } finally {
@@ -75,8 +71,11 @@ export const NewCard = ({
   return (
     <>
       {openSecondSide ? (
-        <div className={styles.layoutContainer}>
-          <div className={styles.container}>
+        <div
+          data-testid="addNewCardContainer"
+          className={styles.layoutContainer}
+        >
+          <div className={styles.addNewCardContainer}>
             <div className={styles.textAndButtonContainer}>
               <div className={styles.caption}>{flashCard.name}</div>
               <button onClick={openCardBackSide} className={styles.icon}>
@@ -85,6 +84,7 @@ export const NewCard = ({
             </div>
             <div className={styles.inputContainer}>
               <textarea
+                data-testid="backInput"
                 ref={textareaRefSecond}
                 className={styles.input}
                 onInput={() => handleTextareaInput(textareaRefSecond)}
@@ -100,6 +100,7 @@ export const NewCard = ({
                 Back
               </button>
               <button
+                data-testid="saveButton"
                 onClick={() => saveNewFlashCard()}
                 className={styles.nextButton}
               >
@@ -109,10 +110,14 @@ export const NewCard = ({
           </div>
         </div>
       ) : (
-        <div className={styles.layoutContainer}>
-          <div className={styles.container}>
+        <div
+          data-testid="addNewCardContainer"
+          className={styles.layoutContainer}
+        >
+          <div className={styles.addNewCardContainer}>
             <div className={styles.inputContainer}>
               <textarea
+                data-testid="frontInput"
                 ref={textareaRef}
                 className={styles.input}
                 onInput={() => handleTextareaInput(textareaRef)}
@@ -127,7 +132,11 @@ export const NewCard = ({
               >
                 Cancel
               </button>
-              <button onClick={openCardBackSide} className={styles.nextButton}>
+              <button
+                data-testid="goNext"
+                onClick={openCardBackSide}
+                className={styles.nextButton}
+              >
                 Next
               </button>
             </div>

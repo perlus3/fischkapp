@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 
 import deleteButton from '../../assets/deleteButton.png';
 import styles from './NewCards.module.css';
-import { FlashCard } from '../../App.tsx';
+import { Flashcard } from '../../App.tsx';
 import { editCard, handleTextareaInput } from '../../utils/helpers.ts';
 
 interface Props {
@@ -10,10 +10,8 @@ interface Props {
   flashCardTitle?: string;
   goBack?: () => void;
   closeWindow?: () => void;
-  // editFlashCard: (id: string, updatedFlashCard: FlashCard) => void;
-  editFlashCardFromDb: (id: string, updatedFlashCard: FlashCard) => void;
-  // removeFlashCard: (id: string) => void;
-  deleteFlashCardFromDb: (id: string) => void;
+  editFlashCardFromDb?: (id: string, updatedFlashCard: Flashcard) => void;
+  deleteFlashCardFromDb?: (id: string) => void;
   itemId: string;
 }
 
@@ -21,15 +19,13 @@ export const EditCardValue = ({
   flashCardValue,
   flashCardTitle,
   goBack,
-  // editFlashCard,
   editFlashCardFromDb,
-  // removeFlashCard,
   itemId,
   deleteFlashCardFromDb,
 }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isDeleted, setIsDeleted] = useState(false);
-  const [updatedFlashCard, setUpdatedFlashCard] = useState<FlashCard>({
+  const [updatedFlashCard, setUpdatedFlashCard] = useState<Flashcard>({
     _id: itemId,
     front: flashCardTitle,
     back: flashCardValue,
@@ -46,19 +42,16 @@ export const EditCardValue = ({
   };
 
   const saveEditedFlashCard = () => {
-    editCard(
-      itemId,
-      updatedFlashCard,
-      // editFlashCard,
-      editFlashCardFromDb,
-      goBack,
-    );
+    if (editFlashCardFromDb) {
+      editCard(itemId, updatedFlashCard, editFlashCardFromDb, goBack);
+    }
   };
 
   const handleDeleteClick = (id: string) => {
     try {
-      // removeFlashCard(id);
-      deleteFlashCardFromDb(id);
+      if (deleteFlashCardFromDb) {
+        deleteFlashCardFromDb(id);
+      }
     } catch (e) {
       console.log(e);
     } finally {
@@ -79,7 +72,7 @@ export const EditCardValue = ({
   return (
     <>
       {isDeleted ? null : (
-        <div className={styles.container}>
+        <div className={styles.addNewCardContainer}>
           <div className={styles.textAndButtonContainer}>
             <div className={styles.caption}>{flashCardValue}</div>
             <button

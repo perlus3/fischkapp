@@ -10,6 +10,6 @@ export default {
     transform: {
         "^.+\\.(js|jsx|ts|tsx)$": "ts-jest",
         "\\.svg$": "svg-jest",
-        "\\.(jpg|jpeg|png|gif|webp|svg)$": "jest-transform-stub" // Dodaj tę linię
+        "\\.(jpg|jpeg|png|gif|webp|svg)$": "jest-transform-stub"
     },
 };
