@@ -3,26 +3,22 @@ import React, { useRef, useState } from 'react';
 import deleteButton from '../../assets/deleteButton.png';
 import styles from './NewCards.module.css';
 
-import { FlashCard } from '../../App.tsx';
+import { Flashcard } from '../../App.tsx';
 import { editCard, handleTextareaInput } from '../../utils/helpers.ts';
 
 interface Props {
   flashCardTitle?: string;
   flashCardValue?: string;
   goBack?: () => void;
-  // editFlashCard: (id: string, updatedFlashCard: FlashCard) => void;
-  editFlashCardFromDb: (id: string, updatedFlashCard: FlashCard) => void;
-  // removeFlashCard: (id: string) => void;
-  deleteFlashCardFromDb: (id: string) => void;
+  editFlashCardFromDb?: (id: string, updatedFlashCard: Flashcard) => void;
+  deleteFlashCardFromDb?: (id: string) => void;
   itemId: string;
 }
 export const EditCardName = ({
   itemId,
   flashCardTitle,
   goBack,
-  // editFlashCard,
   editFlashCardFromDb,
-  // removeFlashCard,
   flashCardValue,
   deleteFlashCardFromDb,
 }: Props) => {
@@ -45,19 +41,16 @@ export const EditCardName = ({
   };
 
   const saveEditedFlashCard = () => {
-    editCard(
-      itemId,
-      updatedFlashCard,
-      // editFlashCard,
-      editFlashCardFromDb,
-      goBack,
-    );
+    if (editFlashCardFromDb) {
+      editCard(itemId, updatedFlashCard, editFlashCardFromDb, goBack);
+    }
   };
 
   const handleDeleteClick = (id: string) => {
     try {
-      // removeFlashCard(id);
-      deleteFlashCardFromDb(id);
+      if (deleteFlashCardFromDb) {
+        deleteFlashCardFromDb(id);
+      }
     } catch (e) {
       console.log(e);
     } finally {
@@ -77,7 +70,7 @@ export const EditCardName = ({
   return (
     <>
       {isDeleted ? null : (
-        <div className={styles.container}>
+        <div className={styles.addNewCardContainer}>
           <div className={styles.textAndButtonContainer}>
             <button
               onClick={() => handleDeleteClick(itemId)}

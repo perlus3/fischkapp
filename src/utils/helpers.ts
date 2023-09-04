@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlashCard } from '../App.tsx';
+import { Flashcard } from '../App.tsx';
 
 export const handleTextareaInput = (
   ref: React.RefObject<HTMLTextAreaElement>,
@@ -12,15 +12,18 @@ export const handleTextareaInput = (
 
 export const editCard = (
   id: string,
-  updatedFlashCard: FlashCard,
-  // editFlashCard: (id: string, updatedFlashCard: FlashCard) => void,
-  editFlashCardFromDb: (id: string, updatedFlashCard: FlashCard) => void,
+  updatedFlashCard: Flashcard,
+  editFlashCardFromDb: (
+    id: string,
+    updatedFlashCard: Flashcard,
+  ) => void | undefined,
   goBack: (() => void) | undefined,
 ) => {
   try {
     if (updatedFlashCard.front && updatedFlashCard.back) {
-      // editFlashCard(id, updatedFlashCard);
-      editFlashCardFromDb(id, updatedFlashCard);
+      if (editFlashCardFromDb) {
+        editFlashCardFromDb(id, updatedFlashCard);
+      }
     }
   } catch (e) {
     console.log(e);

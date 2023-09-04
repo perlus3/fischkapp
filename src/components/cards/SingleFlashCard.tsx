@@ -3,25 +3,21 @@ import styles from './SingleCard.module.css';
 import editButton from '../../assets/editButton.png';
 import { EditCardName } from './EditCardName.tsx';
 import { EditCardValue } from './EditCardValue.tsx';
-import { FlashCard } from '../../App.tsx';
+import { Flashcard } from '../../App.tsx';
 
 interface Props {
   itemId: string;
   flashCardTitle?: string;
   flashCardValue?: string;
-  // editFlashCard: (id: string, updatedFlashCard: FlashCard) => void;
-  editFlashCardFromDb: (id: string, updatedFlashCard: FlashCard) => void;
-  // removeFlashCard: (id: string) => void;
-  deleteFlashCardFromDb: (id: string) => void;
+  editFlashCardFromDb?: (id: string, updatedFlashCard: Flashcard) => void;
+  deleteFlashCardFromDb?: (id: string) => void;
 }
 
 export const SingleFlashCard = ({
   itemId,
   flashCardTitle,
   flashCardValue,
-  // editFlashCard,
   editFlashCardFromDb,
-  // removeFlashCard,
   deleteFlashCardFromDb,
 }: Props) => {
   const [isCardFlipped, setIsCardFlipped] = useState(false);
@@ -48,9 +44,7 @@ export const SingleFlashCard = ({
       <EditCardName
         itemId={itemId}
         flashCardValue={flashCardValue}
-        // removeFlashCard={removeFlashCard}
         deleteFlashCardFromDb={deleteFlashCardFromDb}
-        // editFlashCard={editFlashCard}
         editFlashCardFromDb={editFlashCardFromDb}
         flashCardTitle={flashCardTitle}
         goBack={handleEditComplete}
@@ -63,9 +57,7 @@ export const SingleFlashCard = ({
       <EditCardValue
         itemId={itemId}
         flashCardValue={flashCardValue}
-        // removeFlashCard={removeFlashCard}
         deleteFlashCardFromDb={deleteFlashCardFromDb}
-        // editFlashCard={editFlashCard}
         editFlashCardFromDb={editFlashCardFromDb}
         flashCardTitle={flashCardTitle}
         goBack={handleEditComplete}
@@ -83,10 +75,13 @@ export const SingleFlashCard = ({
 
   return (
     <div
+      data-testid="newlyAddedCard"
       onClick={handleCardClick}
-      className={`${styles.card} ${isCardFlipped ? styles.cardFlip : ''}`}
+      className={`${styles.cardContainer} ${
+        isCardFlipped ? styles.cardFlip : ''
+      }`}
     >
-      <div className={`${styles.cardContainer}`}>
+      <div className={`${styles.card}`}>
         <div
           className={`${styles.backCard} ${isCardFlipped ? '' : styles.hidden}`}
         >
