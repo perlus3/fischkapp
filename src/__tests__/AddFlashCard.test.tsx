@@ -1,5 +1,5 @@
 import React from 'react';
-import fetchMock from 'jest-fetch-mock';
+// import fetchMock from 'jest-fetch-mock';
 import '@testing-library/jest-dom';
 
 import { setupServer } from 'msw/node';
@@ -13,14 +13,7 @@ const server = setupServer(
   rest.get(
     'https://training.nerdbord.io/api/v1/fischkapp/flashcards',
     (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json([
-          { _id: '1234', front: 'front1', back: 'back4' },
-          { _id: '1435', front: 'front2', back: 'back5' },
-          { _id: '1455', front: 'front3', back: 'back6' },
-        ]),
-      );
+      return res(ctx.status(200), ctx.json([]));
     },
   ),
   rest.post(
@@ -47,11 +40,11 @@ const server = setupServer(
   ),
 );
 
-beforeAll(() => {
-  fetchMock.enableMocks();
-});
+// beforeAll(() => {
+//   fetchMock.enableMocks();
+// });
 beforeAll(() => server.listen());
-beforeEach(() => server.resetHandlers());
+// beforeEach(() => server.resetHandlers());
 
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
@@ -81,7 +74,7 @@ describe('Adding New Flashcard', () => {
 
     await waitFor(() => {
       const newCards = queryAllByTestId('newlyAddedCard');
-      expect(newCards.length).toBe(4);
+      expect(newCards.length).toBe(1);
     });
   });
   it('should add new flashcard when front and back values are present', async () => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './SingleCard.module.css';
 import editButton from '../../assets/editButton.png';
 import { EditCardName } from './EditCardName.tsx';
@@ -9,20 +9,46 @@ interface Props {
   itemId: string;
   flashCardTitle?: string;
   flashCardValue?: string;
-  editFlashCardFromDb?: (id: string, updatedFlashCard: Flashcard) => void;
-  deleteFlashCardFromDb?: (id: string) => void;
+  editFlashCard?: (id: string, updatedFlashCard: Flashcard) => void;
+  deleteFlashCard?: (id: string) => void;
 }
 
 export const SingleFlashCard = ({
   itemId,
   flashCardTitle,
   flashCardValue,
-  editFlashCardFromDb,
-  deleteFlashCardFromDb,
+  editFlashCard,
+  deleteFlashCard,
 }: Props) => {
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [editFlashCardTitle, setEditFlashCardTitle] = useState(false);
   const [editFlashCardValue, setEditFlashCardValue] = useState(false);
+  const [frontCardHeight, setFrontCardHeight] = useState<number>(0);
+  const [backCardHeight, setBackCardHeight] = useState<number>(0);
+  const cardFrontRef = useRef<HTMLDivElement | null>(null);
+  const cardBackRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (cardFrontRef.current) {
+      const frontCard = cardFrontRef.current;
+      const text = frontCard.querySelector('p');
+
+      if (text instanceof HTMLElement) {
+        setFrontCardHeight(text.offsetHeight);
+      }
+    }
+  }, [flashCardTitle, itemId]);
+
+  useEffect(() => {
+    if (cardBackRef.current) {
+      const backCard = cardBackRef.current;
+      const text = backCard.querySelector('p');
+
+      if (text instanceof HTMLElement) {
+        setBackCardHeight(text.offsetHeight);
+      }
+    }
+  }, [flashCardValue, itemId]);
 
   const handleEditFlashCardTitle = () => {
     setEditFlashCardTitle(true);
@@ -43,10 +69,10 @@ export const SingleFlashCard = ({
     return (
       <EditCardName
         itemId={itemId}
-        flashCardValue={flashCardValue}
-        deleteFlashCardFromDb={deleteFlashCardFromDb}
-        editFlashCardFromDb={editFlashCardFromDb}
+        deleteFlashCard={deleteFlashCard}
+        editFlashCard={editFlashCard}
         flashCardTitle={flashCardTitle}
+        flashCardValue={flashCardValue}
         goBack={handleEditComplete}
       />
     );
@@ -56,9 +82,9 @@ export const SingleFlashCard = ({
     return (
       <EditCardValue
         itemId={itemId}
+        deleteFlashCard={deleteFlashCard}
+        editFlashCard={editFlashCard}
         flashCardValue={flashCardValue}
-        deleteFlashCardFromDb={deleteFlashCardFromDb}
-        editFlashCardFromDb={editFlashCardFromDb}
         flashCardTitle={flashCardTitle}
         goBack={handleEditComplete}
       />
@@ -80,12 +106,20 @@ export const SingleFlashCard = ({
       className={`${styles.cardContainer} ${
         isCardFlipped ? styles.cardFlip : ''
       }`}
+      style={{
+        // height: cardHeight,
+        ...(isCardFlipped
+          ? { height: backCardHeight }
+          : { height: frontCardHeight }),
+      }}
     >
       <div className={`${styles.card}`}>
         <div
+          ref={cardBackRef}
           className={`${styles.backCard} ${isCardFlipped ? '' : styles.hidden}`}
         >
           <button
+            data-testid="backEditButton"
             onClick={handleEditFlashCardValue}
             className={`${styles.icon} edit-button`}
           >
@@ -96,11 +130,13 @@ export const SingleFlashCard = ({
           </div>
         </div>
         <div
+          ref={cardFrontRef}
           className={`${styles.frontCard} ${
             isCardFlipped ? styles.hidden : ''
           }`}
         >
           <button
+            data-testid="frontEditButton"
             onClick={handleEditFlashCardTitle}
             className={`${styles.icon} edit-button`}
           >

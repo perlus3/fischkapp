@@ -7,10 +7,10 @@ import { handleTextareaInput } from '../../utils/helpers.ts';
 
 interface Props {
   closeWindow?: () => void;
-  saveNewFlashCardToDb?: (newFlashCard: Flashcard) => void;
+  saveNewFlashCard?: (newFlashCard: Flashcard) => void;
 }
 
-export const NewCard = ({ closeWindow, saveNewFlashCardToDb }: Props) => {
+export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const textareaRefSecond = useRef<HTMLTextAreaElement>(null);
   const [openSecondSide, setOpenSecondSide] = useState(false);
@@ -47,19 +47,19 @@ export const NewCard = ({ closeWindow, saveNewFlashCardToDb }: Props) => {
     e: React.KeyboardEvent<HTMLTextAreaElement>,
   ) => {
     if (e.key === 'Enter') {
-      saveNewFlashCard();
+      saveCard();
     }
   };
 
-  const saveNewFlashCard = () => {
+  const saveCard = () => {
     try {
       const newFlashCard: Flashcard = {
         _id: '',
         front: flashCard.name,
         back: flashCard.value,
       };
-      if (saveNewFlashCardToDb) {
-        saveNewFlashCardToDb(newFlashCard);
+      if (saveNewFlashCard) {
+        saveNewFlashCard(newFlashCard);
       }
     } catch (e) {
       console.log(e);
@@ -101,7 +101,7 @@ export const NewCard = ({ closeWindow, saveNewFlashCardToDb }: Props) => {
               </button>
               <button
                 data-testid="saveButton"
-                onClick={() => saveNewFlashCard()}
+                onClick={() => saveCard()}
                 className={styles.nextButton}
               >
                 Save

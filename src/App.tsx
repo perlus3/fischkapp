@@ -36,7 +36,7 @@ function App() {
     })();
   }, [shouldFetchData]);
 
-  const saveNewFlashCardToDb = async (newFlashCard: Flashcard) => {
+  const saveNewFlashCard = async (newFlashCard: Flashcard) => {
     try {
       const data = await addNewFlashcard(newFlashCard);
 
@@ -53,7 +53,7 @@ function App() {
     try {
       const data = await updateFlashcard(id, updatedFlashcard);
       if (data) {
-        window.location.reload();
+        setShouldFetchData((prevState) => !prevState);
       }
     } catch (e) {
       console.error('Error while edit fish card:', e);
@@ -79,14 +79,14 @@ function App() {
       <AppHeader openAddingNewCard={openAddingNewCard} />
       {isAddingNewCardWindowOpen ? (
         <NewCard
-          saveNewFlashCardToDb={saveNewFlashCardToDb}
+          saveNewFlashCard={saveNewFlashCard}
           closeWindow={openAddingNewCard}
         />
       ) : (
         <CardsList
           flashCards={flashcards}
-          editFlashCardFromDb={editFlashcard}
-          deleteFlashCardFromDb={(id: string) => removeFlashcard(id)}
+          editFlashCard={editFlashcard}
+          deleteFlashCard={(id: string) => removeFlashcard(id)}
         />
       )}
     </AppLayout>

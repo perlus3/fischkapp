@@ -10,8 +10,8 @@ interface Props {
   flashCardTitle?: string;
   goBack?: () => void;
   closeWindow?: () => void;
-  editFlashCardFromDb?: (id: string, updatedFlashCard: Flashcard) => void;
-  deleteFlashCardFromDb?: (id: string) => void;
+  editFlashCard?: (id: string, updatedFlashCard: Flashcard) => void;
+  deleteFlashCard?: (id: string) => void;
   itemId: string;
 }
 
@@ -19,38 +19,38 @@ export const EditCardValue = ({
   flashCardValue,
   flashCardTitle,
   goBack,
-  editFlashCardFromDb,
+  editFlashCard,
   itemId,
-  deleteFlashCardFromDb,
+  deleteFlashCard,
 }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isDeleted, setIsDeleted] = useState(false);
-  const [updatedFlashCard, setUpdatedFlashCard] = useState<Flashcard>({
+  const [updatedFlashcard, setUpdatedFlashcard] = useState<Flashcard>({
     _id: itemId,
     front: flashCardTitle,
-    back: flashCardValue,
+    back: '',
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
 
     const { value } = e.target;
-    setUpdatedFlashCard((prevFlashCard) => ({
+    setUpdatedFlashcard((prevFlashCard) => ({
       ...prevFlashCard,
       back: value,
     }));
   };
 
   const saveEditedFlashCard = () => {
-    if (editFlashCardFromDb) {
-      editCard(itemId, updatedFlashCard, editFlashCardFromDb, goBack);
+    if (editFlashCard) {
+      editCard(itemId, updatedFlashcard, editFlashCard, goBack);
     }
   };
 
   const handleDeleteClick = (id: string) => {
     try {
-      if (deleteFlashCardFromDb) {
-        deleteFlashCardFromDb(id);
+      if (deleteFlashCard) {
+        deleteFlashCard(id);
       }
     } catch (e) {
       console.log(e);
@@ -84,6 +84,7 @@ export const EditCardValue = ({
           </div>
           <div className={styles.inputContainer}>
             <textarea
+              data-testid="editBackInput"
               ref={textareaRef}
               className={styles.input}
               onInput={() => handleTextareaInput(textareaRef)}
@@ -92,12 +93,18 @@ export const EditCardValue = ({
             />
           </div>
           <div className={styles.buttonContainer}>
-            <button onClick={() => goBack?.()} className={styles.cancelButton}>
+            <button
+              data-testid="backButton"
+              onClick={() => goBack?.()}
+              className={styles.cancelButton}
+            >
               Back
             </button>
             <button
+              data-testid="saveBackButton"
               onClick={() => saveEditedFlashCard()}
               className={styles.nextButton}
+              disabled={!updatedFlashcard.back}
             >
               Save
             </button>
