@@ -5,7 +5,6 @@
     width: 90%;
     background: #ffffff;
     min-height: 188px;
-    height: auto;
     margin: 10px auto;
     border: 1px solid #ebebec;
     border-radius: 15px;
@@ -52,7 +51,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto;
     width: 100%;
 }
 
@@ -64,6 +62,8 @@ p {
     font-size: 16px;
     line-height: 20px;
     word-wrap: break-word;
+    /*margin: 30px;*/
+    padding: 20px 10px;
 }
 
 .icon {

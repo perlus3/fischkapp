@@ -10,23 +10,23 @@ interface Props {
   flashCardTitle?: string;
   flashCardValue?: string;
   goBack?: () => void;
-  editFlashCardFromDb?: (id: string, updatedFlashCard: Flashcard) => void;
-  deleteFlashCardFromDb?: (id: string) => void;
+  editFlashCard?: (id: string, updatedFlashCard: Flashcard) => void;
+  deleteFlashCard?: (id: string) => void;
   itemId: string;
 }
 export const EditCardName = ({
   itemId,
-  flashCardTitle,
   goBack,
-  editFlashCardFromDb,
+  flashCardTitle,
   flashCardValue,
-  deleteFlashCardFromDb,
+  editFlashCard,
+  deleteFlashCard,
 }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isDeleted, setIsDeleted] = useState(false);
-  const [updatedFlashCard, setUpdatedFlashCard] = useState({
+  const [updatedFlashcard, setUpdatedFlashcard] = useState({
     _id: itemId,
-    front: flashCardTitle,
+    front: '',
     back: flashCardValue,
   });
 
@@ -34,22 +34,22 @@ export const EditCardName = ({
     e.preventDefault();
 
     const { value } = e.target;
-    setUpdatedFlashCard((prevFlashCard) => ({
+    setUpdatedFlashcard((prevFlashCard) => ({
       ...prevFlashCard,
       front: value,
     }));
   };
 
   const saveEditedFlashCard = () => {
-    if (editFlashCardFromDb) {
-      editCard(itemId, updatedFlashCard, editFlashCardFromDb, goBack);
+    if (editFlashCard) {
+      editCard(itemId, updatedFlashcard, editFlashCard, goBack);
     }
   };
 
   const handleDeleteClick = (id: string) => {
     try {
-      if (deleteFlashCardFromDb) {
-        deleteFlashCardFromDb(id);
+      if (deleteFlashCard) {
+        deleteFlashCard(id);
       }
     } catch (e) {
       console.log(e);
@@ -79,29 +79,34 @@ export const EditCardName = ({
               <img src={deleteButton} alt="delete button" />
             </button>
           </div>
-          <form action="" onSubmit={saveEditedFlashCard}>
-            <div className={styles.inputContainer}>
-              <textarea
-                ref={textareaRef}
-                className={styles.input}
-                onInput={() => handleTextareaInput(textareaRef)}
-                placeholder={flashCardTitle}
-                onChange={handleInputChange}
-                onKeyDown={handleTextareaKeyDown}
-              />
-            </div>
-            <div className={styles.buttonContainer}>
-              <button
-                onClick={() => goBack?.()}
-                className={styles.cancelButton}
-              >
-                Cancel
-              </button>
-              <button type="submit" className={styles.nextButton}>
-                Save
-              </button>
-            </div>
-          </form>
+          <div className={styles.inputContainer}>
+            <textarea
+              data-testid="editFrontInput"
+              ref={textareaRef}
+              className={styles.input}
+              onInput={() => handleTextareaInput(textareaRef)}
+              placeholder={flashCardTitle}
+              onChange={handleInputChange}
+              onKeyDown={handleTextareaKeyDown}
+            />
+          </div>
+          <div className={styles.buttonContainer}>
+            <button
+              data-testid="cancelButton"
+              onClick={() => goBack?.()}
+              className={styles.cancelButton}
+            >
+              Cancel
+            </button>
+            <button
+              data-testid="saveFrontButton"
+              onClick={() => saveEditedFlashCard()}
+              className={styles.nextButton}
+              disabled={!updatedFlashcard.front}
+            >
+              Save
+            </button>
+          </div>
         </div>
       )}
     </>

@@ -6,25 +6,25 @@ import { Flashcard } from '../../App.tsx';
 
 interface Props {
   flashCards: Flashcard[];
-  editFlashCardFromDb?: (id: string, updatedFlashCard: Flashcard) => void;
-  deleteFlashCardFromDb?: (id: string) => void;
+  editFlashCard?: (id: string, updatedFlashCard: Flashcard) => void;
+  deleteFlashCard?: (id: string) => void;
 }
 export const CardsList = ({
   flashCards,
-  editFlashCardFromDb,
-  deleteFlashCardFromDb,
+  editFlashCard,
+  deleteFlashCard,
 }: Props) => {
   return (
     <div className={styles.container}>
-      {deleteFlashCardFromDb &&
+      {deleteFlashCard &&
         flashCards?.map((item) => (
           <SingleFlashCard
             key={item._id}
             itemId={item._id}
             flashCardTitle={item.front}
             flashCardValue={item.back}
-            editFlashCardFromDb={editFlashCardFromDb}
-            deleteFlashCardFromDb={(id: string) => deleteFlashCardFromDb(id)}
+            editFlashCard={editFlashCard}
+            deleteFlashCard={(id: string) => deleteFlashCard(id)}
           />
         ))}
     </div>

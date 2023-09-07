@@ -6,7 +6,6 @@ export const fetchFlashcards = async (): Promise<Flashcard[]> => {
     const response = await axios.get(
       'https://training.nerdbord.io/api/v1/fischkapp/flashcards',
     );
-
     if (response.status !== 200) {
       throw new Error('Failed to get FishCard');
     }
@@ -16,7 +15,6 @@ export const fetchFlashcards = async (): Promise<Flashcard[]> => {
     throw error;
   }
 };
-
 export const addNewFlashcard = async (
   addedFlashcard: Flashcard,
 ): Promise<Flashcard> => {
@@ -79,9 +77,6 @@ export const updateFlashcard = async (
   if (response.status !== 201) {
     throw new Error('Failed to edit flashcard');
   }
-  console.log(response.data);
-  // updatedFlashcard
-  // {acknowledged: true, modifiedCount: 1, upsertedId: null, upsertedCount: 0, matchedCount: 1}
   return response.data;
 };
 export const deleteFlashcard = async (id: string): Promise<any> => {
@@ -99,6 +94,5 @@ export const deleteFlashcard = async (id: string): Promise<any> => {
     throw new Error('Failed to delete FishCard');
   }
   console.log(response.data);
-  // message:"Flashcard deleted successfully"
   return response.data;
 };
