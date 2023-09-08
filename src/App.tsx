@@ -64,6 +64,7 @@ function App() {
   const removeFlashcard = async (id: string) => {
     try {
       await deleteFlashcard(id);
+      setShouldFetchData((prevState) => !prevState);
     } catch (e) {
       console.error('Wystąpił błąd:', e);
       throw e;
@@ -76,7 +77,10 @@ function App() {
 
   return (
     <AppLayout>
-      <AppHeader openAddingNewCard={openAddingNewCard} />
+      <AppHeader
+        openAddingNewCard={openAddingNewCard}
+        carsNumber={flashcards.length}
+      />
       {isAddingNewCardWindowOpen ? (
         <NewCard
           saveNewFlashCard={saveNewFlashCard}

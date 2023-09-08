@@ -25,7 +25,6 @@ export const SingleFlashCard = ({
   const [editFlashCardValue, setEditFlashCardValue] = useState(false);
   const [frontCardHeight, setFrontCardHeight] = useState<number>(0);
   const [backCardHeight, setBackCardHeight] = useState<number>(0);
-  const [cardHeight, setCardHeight] = useState(0);
   const cardFrontRef = useRef<HTMLDivElement | null>(null);
   const cardBackRef = useRef<HTMLDivElement | null>(null);
 
@@ -50,10 +49,6 @@ export const SingleFlashCard = ({
       }
     }
   }, [flashCardValue, itemId]);
-
-  useEffect(() => {
-    setCardHeight(Math.max(backCardHeight, frontCardHeight));
-  }, [backCardHeight, frontCardHeight]);
 
   const handleEditFlashCardTitle = () => {
     setEditFlashCardTitle(true);
@@ -111,10 +106,9 @@ export const SingleFlashCard = ({
       className={`${styles.cardContainer} ${
         isCardFlipped ? styles.cardFlip : ''
       }`}
-      style={{ height: cardHeight }}
-      // ...(isCardFlipped
-      //   ? { height: backCardHeight }
-      //   : { height: frontCardHeight }),
+      style={{
+        height: isCardFlipped ? backCardHeight : frontCardHeight,
+      }}
     >
       <div className={`${styles.card}`}>
         <div
