@@ -1,5 +1,4 @@
 import React from 'react';
-// import fetchMock from 'jest-fetch-mock';
 import '@testing-library/jest-dom';
 
 import { setupServer } from 'msw/node';
@@ -39,13 +38,7 @@ const server = setupServer(
     },
   ),
 );
-
-// beforeAll(() => {
-//   fetchMock.enableMocks();
-// });
 beforeAll(() => server.listen());
-// beforeEach(() => server.resetHandlers());
-
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
