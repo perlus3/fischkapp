@@ -3,42 +3,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { EditCardName } from '../components/cards/EditCardName.tsx';
 import { SingleFlashCard } from '../components/cards/SingleFlashCard.tsx';
-import { setupServer } from 'msw/node';
-import { rest } from 'msw';
 
-const server = setupServer(
-  rest.get(
-    'https://training.nerdbord.io/api/v1/fischkapp/flashcards',
-    (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json([
-          { _id: '1', front: 'front1', back: 'back1' },
-          { _id: '2', front: 'front2', back: 'back2' },
-          { _id: '3', front: 'front3', back: 'back3' },
-        ]),
-      );
-    },
-  ),
-  rest.delete(
-    'https://training.nerdbord.io/api/v1/fischkapp/flashcards/:id',
-    (req, res, ctx) => {
-      const mockCards = [
-        { _id: '1', front: 'front1', back: 'back1' },
-        { _id: '2', front: 'front2', back: 'back2' },
-        { _id: '3', front: 'front3', back: 'back3' },
-      ];
-      const { id } = req.params;
-      const filteredCards = mockCards.filter((card) => card._id !== id);
-
-      return res(ctx.status(200), ctx.json(filteredCards));
-    },
-  ),
-);
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
 describe('Delete flashcard', () => {
   it('should delete flashcard from the list when clicking on Trash icon', async () => {
     let isDeleted = false;
