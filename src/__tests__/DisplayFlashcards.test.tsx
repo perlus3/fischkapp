@@ -24,7 +24,7 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-describe('Flahcards displaying in the list properly', () => {
+describe('Flashcards displaying in the list properly', () => {
   test('displaying flashcards in list', async () => {
     const { queryAllByTestId } = render(<App />);
 
