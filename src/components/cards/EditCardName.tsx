@@ -73,6 +73,7 @@ export const EditCardName = ({
         <div className={styles.addNewCardContainer}>
           <div className={styles.textAndButtonContainer}>
             <button
+              data-testid="deleteButton"
               onClick={() => handleDeleteClick(itemId)}
               className={styles.icon}
             >
