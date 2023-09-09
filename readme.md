@@ -1,8 +1,9 @@
-<h1 align="center">
-  Fischkapp 📄
-</h1>
+  # Fischkapp 📄
+
 
 This project aims to create a simple app that supports learning.
+
+## Project live: https://perlus3.github.io/fischkapp/
 
 ---
 
