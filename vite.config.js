@@ -4,6 +4,8 @@ import imagePlugin from '@rollup/plugin-image';
 
 
 export default defineConfig({
+  base: '/fischkapp/',
+
   plugins: [react(), imagePlugin()],
   esbuild: {
     jsxFactory: 'React.createElement',
