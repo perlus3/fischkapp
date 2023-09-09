@@ -1,0 +1,42 @@
+.header {
+  height: 60px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  min-width: 200px;
+  max-width: 375px;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.header img {
+  margin: auto 10px auto 20px;
+  height: 32px;
+  width: 29px;
+}
+
+.buttonContainer {
+  padding: 8px 12px 8px 12px;
+  gap: 4px;
+}
+
+.header button {
+  background: black;
+  border: none;
+  border-radius: 50px;
+  height: 40px;
+  width: 40px;
+  color: white;
+  font-size: 1.5em;
+}
