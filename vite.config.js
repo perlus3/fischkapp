@@ -3,8 +3,9 @@ import react from '@vitejs/plugin-react';
 import imagePlugin from '@rollup/plugin-image';
 
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  base: '/fischkapp/',
+
   plugins: [react(), imagePlugin()],
   esbuild: {
     jsxFactory: 'React.createElement',
@@ -16,3 +17,4 @@ export default defineConfig({
     },
   },
 });
+
