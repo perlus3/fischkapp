@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 
 import styles from './NewCards.module.css';
 import { Flashcard } from '../../App.tsx';
-import deleteButton from '../../assets/deleteButton.png';
 import { handleTextareaInput } from '../../utils/helpers.ts';
 
 interface Props {
@@ -78,9 +77,6 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
           <div className={styles.addNewCardContainer}>
             <div className={styles.textAndButtonContainer}>
               <div className={styles.caption}>{flashCard.name}</div>
-              <button onClick={openCardBackSide} className={styles.icon}>
-                <img src={deleteButton} alt="delete button" />
-              </button>
             </div>
             <div className={styles.inputContainer}>
               <textarea
@@ -88,6 +84,7 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 ref={textareaRefSecond}
                 className={styles.input}
                 onInput={() => handleTextareaInput(textareaRefSecond)}
+                value={flashCard.value}
                 onChange={(e) => handleInputChange(e, 'value')}
                 onKeyDown={handleTextareaKeyDownForSave}
               />
@@ -120,6 +117,7 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 data-testid="frontInput"
                 ref={textareaRef}
                 className={styles.input}
+                value={flashCard.name}
                 onInput={() => handleTextareaInput(textareaRef)}
                 onChange={(e) => handleInputChange(e, 'name')}
                 onKeyDown={handleTextareaKeyDown}

@@ -26,15 +26,15 @@ form {
     width: 90%;
 }
 
-
 .input {
     border: 1px solid #ebebec;
     height: 36px;
     padding: 8px;
     width: 100%;
+    font-family: 'Lexend', sans-serif;
     font-weight: 500;
     font-size: 16px;
-    line-height: 20px;
+    line-height: 19px;
     letter-spacing: 0;
     resize: none;
     overflow-y: hidden;
@@ -62,6 +62,7 @@ button {
     font-size: 14px;
     line-height: 18px;
     border-radius: 22px;
+    letter-spacing: 0;
 }
 
 .cancelButton {
@@ -86,7 +87,7 @@ button {
 .caption {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 90%;
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -94,10 +95,9 @@ button {
     word-wrap: break-word;
     overflow: hidden;
     position: relative;
-    top: 12px;
-    left: 5px;
+    top: 30px;
+    left: -10px;
 }
-
 
 .icon {
     display: flex;
@@ -112,10 +112,5 @@ button {
     margin: 0;
 }
 
-/*.icon img {*/
-/*    display: flex;*/
-/*    width: 40px;*/
-/*    height: 40px;*/
-/*}*/
 
 

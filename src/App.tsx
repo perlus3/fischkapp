@@ -29,7 +29,7 @@ function App() {
     (async () => {
       try {
         const data = await fetchFlashcards();
-        setFlashcards(data);
+        setFlashcards(data.reverse());
       } catch (error) {
         console.error('Wystąpił błąd:', error);
       }
