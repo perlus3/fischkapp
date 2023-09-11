@@ -93,6 +93,5 @@ export const deleteFlashcard = async (id: string): Promise<any> => {
   if (response.status !== 200) {
     throw new Error('Failed to delete FishCard');
   }
-  console.log(response.data);
   return response.data;
 };

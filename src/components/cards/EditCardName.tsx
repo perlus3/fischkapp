@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import deleteButton from '../../assets/deleteButton.png';
 import styles from './NewCards.module.css';
@@ -24,11 +24,24 @@ export const EditCardName = ({
 }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isDeleted, setIsDeleted] = useState(false);
+  const [inputHeight, setInputHeight] = useState<number>(0);
+
   const [updatedFlashcard, setUpdatedFlashcard] = useState({
     _id: itemId,
     front: '',
     back: flashCardValue,
   });
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      const text = textareaRef.current;
+
+      text.style.height = 'auto';
+      text.style.height = `${text.scrollHeight}px`;
+
+      setInputHeight(text.scrollHeight);
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
@@ -85,8 +98,9 @@ export const EditCardName = ({
               data-testid="editFrontInput"
               ref={textareaRef}
               className={styles.input}
+              style={{ height: inputHeight }}
+              value={flashCardTitle}
               onInput={() => handleTextareaInput(textareaRef)}
-              placeholder={flashCardTitle}
               onChange={handleInputChange}
               onKeyDown={handleTextareaKeyDown}
             />
