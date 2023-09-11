@@ -25,21 +25,19 @@ export const EditCardName = ({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isDeleted, setIsDeleted] = useState(false);
   const [inputHeight, setInputHeight] = useState<number>(0);
-
   const [updatedFlashcard, setUpdatedFlashcard] = useState({
     _id: itemId,
-    front: '',
+    front: flashCardTitle,
     back: flashCardValue,
   });
 
   useEffect(() => {
     if (textareaRef.current) {
-      const text = textareaRef.current;
+      const textarea = textareaRef.current;
 
-      text.style.height = 'auto';
-      text.style.height = `${text.scrollHeight}px`;
+      textarea.style.height = `${textarea.scrollHeight}px`;
 
-      setInputHeight(text.scrollHeight);
+      setInputHeight(textarea.scrollHeight);
     }
   }, []);
 
@@ -99,7 +97,7 @@ export const EditCardName = ({
               ref={textareaRef}
               className={styles.input}
               style={{ height: inputHeight }}
-              value={flashCardTitle}
+              value={updatedFlashcard.front}
               onInput={() => handleTextareaInput(textareaRef)}
               onChange={handleInputChange}
               onKeyDown={handleTextareaKeyDown}

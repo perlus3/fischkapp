@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './NewCards.module.css';
 import { Flashcard } from '../../App.tsx';
@@ -13,11 +13,21 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const textareaRefSecond = useRef<HTMLTextAreaElement>(null);
   const [openSecondSide, setOpenSecondSide] = useState(false);
+  const [inputHeight, setInputHeight] = useState<number>(0);
   const [flashCard, setFlashCard] = useState({
     _id: '',
     name: '',
     value: '',
   });
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      const textarea = textareaRef.current;
+      textarea.style.height = `${textarea.scrollHeight}px`;
+
+      setInputHeight(textarea.scrollHeight);
+    }
+  }, [openSecondSide]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
@@ -84,6 +94,7 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 ref={textareaRefSecond}
                 className={styles.input}
                 onInput={() => handleTextareaInput(textareaRefSecond)}
+                style={{ height: inputHeight }}
                 value={flashCard.value}
                 onChange={(e) => handleInputChange(e, 'value')}
                 onKeyDown={handleTextareaKeyDownForSave}
@@ -118,6 +129,7 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 ref={textareaRef}
                 className={styles.input}
                 value={flashCard.name}
+                style={{ height: inputHeight }}
                 onInput={() => handleTextareaInput(textareaRef)}
                 onChange={(e) => handleInputChange(e, 'name')}
                 onKeyDown={handleTextareaKeyDown}
