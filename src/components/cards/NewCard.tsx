@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './NewCards.module.css';
 import { Flashcard } from '../../App.tsx';
+import deleteButton from '../../assets/deleteButton.png';
 import { handleTextareaInput } from '../../utils/helpers.ts';
 
 interface Props {
@@ -87,6 +88,9 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
           <div className={styles.addNewCardContainer}>
             <div className={styles.textAndButtonContainer}>
               <div className={styles.caption}>{flashCard.name}</div>
+              <button onClick={openCardBackSide} className={styles.icon}>
+                <img src={deleteButton} alt="delete button" />
+              </button>
             </div>
             <div className={styles.inputContainer}>
               <textarea
@@ -111,6 +115,7 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 data-testid="saveButton"
                 onClick={() => saveCard()}
                 className={styles.nextButton}
+                disabled={!flashCard.value || !flashCard.name}
               >
                 Save
               </button>

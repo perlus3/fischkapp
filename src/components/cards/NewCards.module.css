@@ -9,6 +9,7 @@
     justify-content: center;
     width: 90%;
     height: auto;
+    min-height: 188px;
     border: 1px solid #ebebec;
     border-radius: 15px;
     background: white;
@@ -19,7 +20,7 @@
 
 .inputContainer {
     width: 100%;
-    margin: 30px auto auto auto;
+    margin: 30px 0 0 0;
 }
 
 form {
@@ -57,6 +58,7 @@ button {
     padding: 10px 12px;
     justify-content: center;
     align-items: center;
+    font-family: 'Lexend', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
