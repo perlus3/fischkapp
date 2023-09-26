@@ -86,13 +86,13 @@ function App() {
           saveNewFlashCard={saveNewFlashCard}
           closeWindow={openAddingNewCard}
         />
-      ) : (
-        <CardsList
-          flashCards={flashcards}
-          editFlashCard={editFlashcard}
-          deleteFlashCard={(id: string) => removeFlashcard(id)}
-        />
-      )}
+      ) : null}
+      <CardsList
+        isAddingCardOpen={isAddingNewCardWindowOpen}
+        flashCards={flashcards}
+        editFlashCard={editFlashcard}
+        deleteFlashCard={(id: string) => removeFlashcard(id)}
+      />
     </AppLayout>
   );
 }

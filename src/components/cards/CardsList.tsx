@@ -8,14 +8,19 @@ interface Props {
   flashCards: Flashcard[];
   editFlashCard?: (id: string, updatedFlashCard: Flashcard) => void;
   deleteFlashCard?: (id: string) => void;
+  isAddingCardOpen?: boolean;
 }
 export const CardsList = ({
   flashCards,
   editFlashCard,
   deleteFlashCard,
+  isAddingCardOpen,
 }: Props) => {
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      style={{ marginTop: isAddingCardOpen ? '12px' : '65px' }}
+    >
       {deleteFlashCard &&
         flashCards?.map((item) => (
           <SingleFlashCard

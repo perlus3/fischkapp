@@ -81,7 +81,7 @@ export const EditCardName = ({
   return (
     <>
       {isDeleted ? null : (
-        <div className={styles.addNewCardContainer}>
+        <div className={styles.editCardContainer}>
           <div className={styles.textAndButtonContainer}>
             <button
               data-testid="deleteButton"

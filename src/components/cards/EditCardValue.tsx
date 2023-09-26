@@ -72,7 +72,7 @@ export const EditCardValue = ({
   return (
     <>
       {isDeleted ? null : (
-        <div className={styles.addNewCardContainer}>
+        <div className={styles.editCardContainer}>
           <div className={styles.textAndButtonContainer}>
             <div className={styles.caption}>{flashCardValue}</div>
             <button

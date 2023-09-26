@@ -102,6 +102,11 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 value={flashCard.value}
                 onChange={(e) => handleInputChange(e, 'value')}
                 onKeyDown={handleTextareaKeyDownForSave}
+                onClick={() => {
+                  if (textareaRefSecond.current) {
+                    textareaRefSecond.current.focus();
+                  }
+                }}
               />
             </div>
             <div className={styles.buttonContainer}>
@@ -138,6 +143,11 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 onInput={() => handleTextareaInput(textareaRef)}
                 onChange={(e) => handleInputChange(e, 'name')}
                 onKeyDown={handleTextareaKeyDown}
+                onClick={() => {
+                  if (textareaRef.current) {
+                    textareaRef.current.focus();
+                  }
+                }}
               />
             </div>
             <div className={styles.buttonContainer}>

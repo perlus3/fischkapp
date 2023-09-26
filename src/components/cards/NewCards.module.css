@@ -1,8 +1,21 @@
-.layoutContainer {
-    margin-top: 100px;
-}
 
 .addNewCardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: auto;
+    min-height: 188px;
+    border: 1px solid #ebebec;
+    border-radius: 15px;
+    background: white;
+    margin: 65px auto 12px auto;
+    padding: 10px;
+    flex-shrink: 0;
+}
+
+.editCardContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
