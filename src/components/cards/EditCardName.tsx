@@ -36,6 +36,11 @@ export const EditCardName = ({
       const textarea = textareaRef.current;
 
       textarea.style.height = `${textarea.scrollHeight}px`;
+      textareaRef.current.focus();
+      if (updatedFlashcard.front) {
+        textareaRef.current.selectionStart = textareaRef.current.selectionEnd =
+          updatedFlashcard.front.length;
+      }
 
       setInputHeight(textarea.scrollHeight);
     }

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import deleteButton from '../../assets/deleteButton.png';
 import styles from './NewCards.module.css';
@@ -30,6 +30,12 @@ export const EditCardValue = ({
     front: flashCardTitle,
     back: '',
   });
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();

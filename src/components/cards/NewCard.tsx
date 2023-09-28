@@ -25,8 +25,16 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
     if (textareaRef.current) {
       const textarea = textareaRef.current;
       textarea.style.height = `${textarea.scrollHeight}px`;
+      textareaRef.current.focus();
 
       setInputHeight(textarea.scrollHeight);
+    }
+    if (textareaRefSecond.current) {
+      const textarea2 = textareaRefSecond.current;
+      textarea2.style.height = `${textarea2.scrollHeight}px`;
+      textareaRefSecond.current.focus();
+
+      setInputHeight(textarea2.scrollHeight);
     }
   }, [openSecondSide]);
 
@@ -102,11 +110,6 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 value={flashCard.value}
                 onChange={(e) => handleInputChange(e, 'value')}
                 onKeyDown={handleTextareaKeyDownForSave}
-                onClick={() => {
-                  if (textareaRefSecond.current) {
-                    textareaRefSecond.current.focus();
-                  }
-                }}
               />
             </div>
             <div className={styles.buttonContainer}>
@@ -133,6 +136,9 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
           className={styles.layoutContainer}
         >
           <div className={styles.addNewCardContainer}>
+            <div className={styles.textAndButtonContainer}>
+              <div className={styles.caption}></div>
+            </div>
             <div className={styles.inputContainer}>
               <textarea
                 data-testid="frontInput"
@@ -143,11 +149,6 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 onInput={() => handleTextareaInput(textareaRef)}
                 onChange={(e) => handleInputChange(e, 'name')}
                 onKeyDown={handleTextareaKeyDown}
-                onClick={() => {
-                  if (textareaRef.current) {
-                    textareaRef.current.focus();
-                  }
-                }}
               />
             </div>
             <div className={styles.buttonContainer}>
