@@ -90,7 +90,7 @@ export const EditCardValue = ({
       {isDeleted ? null : (
         <div className={styles.editCardContainer}>
           <div className={styles.textAndButtonContainer}>
-            <div className={styles.caption}>{flashCardValue}</div>
+            <div className={styles.caption}>{flashCardTitle}</div>
             <button
               data-testid="deleteButton"
               onClick={() => handleDeleteClick(itemId)}
