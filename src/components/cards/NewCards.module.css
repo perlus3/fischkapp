@@ -60,7 +60,15 @@ form {
     display: flex;
     justify-content: flex-end;
     width: 90%;
-    margin-top: 35px;
+    margin: 35px 0 0 24px;
+    gap: 7px;
+}
+
+.buttonContainerForNewCard {
+    display: flex;
+    justify-content: flex-end;
+    width: 90%;
+    margin: 35px 0 0 30px;
     gap: 7px;
 }
 

@@ -105,7 +105,7 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 onChange={(e) => handleInputChange(e, 'value')}
                 onKeyDown={handleTextareaKeyDownForSave}
               />
-              <div className={styles.buttonContainer}>
+              <div className={styles.buttonContainerForNewCard}>
                 <button
                   onClick={openCardBackSide}
                   className={styles.cancelButton}
@@ -143,7 +143,7 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 onChange={(e) => handleInputChange(e, 'name')}
                 onKeyDown={handleTextareaKeyDown}
               />
-              <div className={styles.buttonContainer}>
+              <div className={styles.buttonContainerForNewCard}>
                 <button
                   onClick={() => closeWindow?.()}
                   className={styles.cancelButton}
