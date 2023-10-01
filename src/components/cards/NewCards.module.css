@@ -101,6 +101,7 @@ button {
 
 .caption {
     display: flex;
+    min-height: 20px;
     flex-direction: column;
     width: 90%;
     font-style: normal;
