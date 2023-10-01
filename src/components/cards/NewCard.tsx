@@ -14,7 +14,6 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const textareaRefSecond = useRef<HTMLTextAreaElement>(null);
   const [openSecondSide, setOpenSecondSide] = useState(false);
-  const [inputHeight, setInputHeight] = useState<number>(0);
   const [flashCard, setFlashCard] = useState({
     _id: '',
     name: '',
@@ -26,15 +25,11 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
       const textarea = textareaRef.current;
       textarea.style.height = `${textarea.scrollHeight}px`;
       textareaRef.current.focus();
-
-      setInputHeight(textarea.scrollHeight);
     }
     if (textareaRefSecond.current) {
       const textarea2 = textareaRefSecond.current;
       textarea2.style.height = `${textarea2.scrollHeight}px`;
       textareaRefSecond.current.focus();
-
-      setInputHeight(textarea2.scrollHeight);
     }
   }, [openSecondSide]);
 
@@ -106,27 +101,26 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 ref={textareaRefSecond}
                 className={styles.input}
                 onInput={() => handleTextareaInput(textareaRefSecond)}
-                style={{ height: inputHeight }}
                 value={flashCard.value}
                 onChange={(e) => handleInputChange(e, 'value')}
                 onKeyDown={handleTextareaKeyDownForSave}
               />
-            </div>
-            <div className={styles.buttonContainer}>
-              <button
-                onClick={openCardBackSide}
-                className={styles.cancelButton}
-              >
-                Back
-              </button>
-              <button
-                data-testid="saveButton"
-                onClick={() => saveCard()}
-                className={styles.nextButton}
-                disabled={!flashCard.value || !flashCard.name}
-              >
-                Save
-              </button>
+              <div className={styles.buttonContainer}>
+                <button
+                  onClick={openCardBackSide}
+                  className={styles.cancelButton}
+                >
+                  Back
+                </button>
+                <button
+                  data-testid="saveButton"
+                  onClick={() => saveCard()}
+                  className={styles.nextButton}
+                  disabled={!flashCard.value || !flashCard.name}
+                >
+                  Save
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -145,26 +139,25 @@ export const NewCard = ({ closeWindow, saveNewFlashCard }: Props) => {
                 ref={textareaRef}
                 className={styles.input}
                 value={flashCard.name}
-                style={{ height: inputHeight }}
                 onInput={() => handleTextareaInput(textareaRef)}
                 onChange={(e) => handleInputChange(e, 'name')}
                 onKeyDown={handleTextareaKeyDown}
               />
-            </div>
-            <div className={styles.buttonContainer}>
-              <button
-                onClick={() => closeWindow?.()}
-                className={styles.cancelButton}
-              >
-                Cancel
-              </button>
-              <button
-                data-testid="goNext"
-                onClick={openCardBackSide}
-                className={styles.nextButton}
-              >
-                Next
-              </button>
+              <div className={styles.buttonContainer}>
+                <button
+                  onClick={() => closeWindow?.()}
+                  className={styles.cancelButton}
+                >
+                  Cancel
+                </button>
+                <button
+                  data-testid="goNext"
+                  onClick={openCardBackSide}
+                  className={styles.nextButton}
+                >
+                  Next
+                </button>
+              </div>
             </div>
           </div>
         </div>
